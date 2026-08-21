@@ -1,5 +1,9 @@
 <template>
-    <h1 class="text-2xl">Esta es la página principal</h1>
+    <h1 class="text-2xl text-center pt-10 ">COMPONENTE</h1>
 </template>
 
-<script setup></script>
+<script setup>
+    import { IconHome, IconUser, IconSettings } from '@tabler/icons-vue'
+</script>
+
+
