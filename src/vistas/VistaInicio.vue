@@ -1,8 +1,11 @@
 <template>
-    <h1 class="text-2xl text-center pt-10 ">COMPONENTE</h1>
+    <!-- Vista de Inicio -->
+    <!-- Banner principal -->
+    <Herobanner/>
 </template>
 
 <script setup>
+import Herobanner from '@/componentes/Herobanner.vue';
 </script>
 
 
