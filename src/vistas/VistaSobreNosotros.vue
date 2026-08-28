@@ -1,11 +1,9 @@
 <template>
-    <!-- HTML -->
-     <h1></h1>
+    <!-- HTML -->    
+    <h1 class="text-2xl text-center pt-10 ">SOBRE NOSOTROS</h1>
+
 </template>
 
 <script setup>
 // JAVASCRIPT
 </script>
-
-<style scoped>
-</style>
