@@ -5,13 +5,13 @@
         
         <!-- Logo / Marca -->
         <div class="flex-shrink-0 flex items-center space-x-2">
-          <div class="p-1.5 bg-gradient-to-tr from-violet-600 to-indigo-500 rounded-lg">
+          <RouterLink to="/" class="p-1.5 bg-gradient-to-tr from-violet-600 to-indigo-500 rounded-lg">
 
             <IconCloudFog class="h-6 w-6 text-white" />
 
 
             
-          </div>
+          </RouterLink>
           <span class="font-bold text-xl bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent">
             Help Desk
           </span>
@@ -19,25 +19,25 @@
 
         <!-- Enlaces Escritorio -->
         <div class="hidden md:flex space-x-2">
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+          <RouterLink to="/" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
             <IconHome class="w-5 h-5 text-violet-400" />
             <span>Inicio</span>
-          </a>
+          </RouterLink>
 
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+          <RouterLink to="/chat-soporte" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
             <IconMessageChatbot class="w-5 h-5 text-violet-400" />
             <span>Chat de Soporte</span>
-          </a>
+          </RouterLink>
 
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+          <RouterLink to="/preguntas-frecuentes" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
             <IconHelpCircle class="w-5 h-5 text-violet-400" />
             <span>Problemas Comunes</span>
-          </a>
+          </RouterLink>
 
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+          <RouterLink to="/sobre-nosotros" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
             <IconInfoCircle class="w-5 h-5 text-violet-400" />
             <span>Sobre Nosotros</span>
-          </a>
+          </RouterLink>
         </div>
 
         <!-- Botón Menú Móvil -->
@@ -55,25 +55,25 @@
 
     <!-- Menú Desplegable Móvil -->
     <div v-if="isMenuOpen" class="md:hidden bg-slate-900/95 border-b border-indigo-900/50 px-4 pt-2 pb-4 space-y-1 backdrop-blur-sm">
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
+      <RouterLink to="/" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
         <IconHome class="w-5 h-5 text-violet-400" />
         <span>Inicio</span>
-      </a>
+      </RouterLink>
 
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
+      <RouterLink to="/chat-soporte" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
         <IconMessageChatbot class="w-5 h-5 text-violet-400" />
         <span>Chat de Soporte</span>
-      </a>
+      </RouterLink>
 
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
+      <RouterLink to="/preguntas-frecuentes" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
         <IconHelpCircle class="w-5 h-5 text-violet-400" />
         <span>Problemas Comunes</span>
-      </a>
+      </RouterLink>
 
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
+      <RouterLink to="/sobre-nosotros" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
         <IconInfoCircle class="w-5 h-5 text-violet-400" />
         <span>Sobre Nosotros</span>
-      </a>
+      </RouterLink>
     </div>
   </nav>
 
@@ -81,6 +81,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router';
 import { 
   IconHome, 
   IconMessageChatbot, 

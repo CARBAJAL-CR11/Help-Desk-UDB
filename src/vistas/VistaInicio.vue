@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-    import { IconHome, IconUser, IconSettings } from '@tabler/icons-vue'
 </script>
 
 
