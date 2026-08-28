@@ -72,7 +72,7 @@
   <Transition name="slide">
     <aside 
       v-if="isMenuOpen" 
-      class="fixed top-0 right-0 h-full w-64 bg-brand-200 z-50 p-6 flex flex-col justify-start md:hidden shadow-2xl"
+      class="fixed top-0 right-0 h-full w-80 bg-brand-300 z-50 p-6 flex flex-col justify-start md:hidden shadow-2xl"
     >
       <!-- Cabecera del Sidebar con Título y Botón Cerrar (chevron) -->
       <div class="flex items-center justify-between mb-8">
@@ -86,12 +86,12 @@
       </div>
 
       <!-- Menú de Enlaces Móvil -->
-      <div class="flex flex-col space-y-3">
+      <div class="flex flex-col space-y-3 ">
         <RouterLink 
           to="/" 
           @click="isMenuOpen = false"
-          class="w-full py-3 px-5 rounded-2xl font-semibold text-center transition-all duration-200 shadow-xs"
-          :class="$route.path === '/' ? 'bg-brand-400 text-brand-50' : 'bg-brand-50 text-brand-500 hover:bg-brand-100'"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
         >
           Inicio
         </RouterLink>
@@ -99,8 +99,8 @@
         <RouterLink 
           to="/chat-soporte" 
           @click="isMenuOpen = false"
-          class="w-full py-3 px-5 rounded-2xl font-semibold text-center transition-all duration-200 shadow-xs"
-          :class="$route.path === '/chat-soporte' ? 'bg-brand-400 text-brand-50' : 'bg-brand-50 text-brand-500 hover:bg-brand-100'"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/chat-soporte' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
         >
           Soporte Técnico
         </RouterLink>
@@ -108,8 +108,8 @@
         <RouterLink 
           to="/preguntas-frecuentes" 
           @click="isMenuOpen = false"
-          class="w-full py-3 px-5 rounded-2xl font-semibold text-center transition-all duration-200 shadow-xs"
-          :class="$route.path === '/preguntas-frecuentes' ? 'bg-brand-400 text-brand-50' : 'bg-brand-50 text-brand-500 hover:bg-brand-100'"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/preguntas-frecuentes' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
         >
           Preguntas Frecuentes
         </RouterLink>
@@ -117,8 +117,8 @@
         <RouterLink 
           to="/sobre-nosotros" 
           @click="isMenuOpen = false"
-          class="w-full py-3 px-5 rounded-2xl font-semibold text-center transition-all duration-200 shadow-xs"
-          :class="$route.path === '/sobre-nosotros' ? 'bg-brand-400 text-brand-50' : 'bg-brand-50 text-brand-500 hover:bg-brand-100'"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/sobre-nosotros' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
         >
           Contáctanos
         </RouterLink>
