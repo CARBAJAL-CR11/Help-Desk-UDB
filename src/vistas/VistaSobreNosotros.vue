@@ -13,15 +13,15 @@
       <section class="mb-10">
         <h2 class="text-2xl font-bold text-brand-400 mb-6">¿Qué nos identifica?</h2>
         <div class="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="relative bg-brand-500 text-white text-xs p-4 rounded-sm shadow-md">
+          <div class="relative bg-brand-500 text-brand-50 text-xs p-4 rounded-sm shadow-md">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-brand-500 rotate-45"></div>
           </div>
-          <div class="relative bg-brand-600 text-white text-xs p-4 rounded-sm shadow-md">
+          <div class="relative bg-brand-600 text-brand-50 text-xs p-4 rounded-sm shadow-md">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-brand-600 rotate-45"></div>
           </div>
-          <div class="relative bg-brand-500 text-white text-xs p-4 rounded-sm shadow-md md:col-span-2 lg:col-span-1">
+          <div class="relative bg-brand-500 text-brand-50 text-xs p-4 rounded-sm shadow-md md:col-span-2 lg:col-span-1">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-brand-500 rotate-45"></div>
           </div>
@@ -62,10 +62,14 @@
             />
         </div>
       </section>
+      <section>
+        <FormularioEnviarComentario/>
+      </section>
     </main>
    </div>
 </template>
 
 <script setup>
     import TarjetaNuestroEquipo from '@/componentes/TarjetaNuestroEquipo.vue';
+    import FormularioEnviarComentario from '@/componentes/FormularioEnviarComentario.vue';
 </script>
