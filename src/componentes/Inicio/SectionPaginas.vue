@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-brand-700 min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+  <section class="bg-brand-700 min-h-screen py-20 px-14 sm:px-20 md:px-24 lg:px-8">
     <div class="max-w-6xl mx-auto space-y-12">
       
       <!-- Encabezado Principal -->
@@ -16,12 +16,12 @@
       <div class="border-t-2 border-brand-200/60 max-w mx-auto"></div>
 
       <!-- Contenido de Cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-12 items-stretch">
         
         <!-- Chat de Soporte -->
         <div class="flex flex-col justify-between space-y-6 text-center lg:text-left">
           <div class="space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-bold text-brand-400">
+            <h2 class="text-xl sm:text-3xl font-bold text-brand-400">
               Chat de Soporte
             </h2>
             <p class="text-brand-600 text-sm sm:text-base">
@@ -46,7 +46,7 @@
         <!-- Problemas Frecuentes y Guías -->
         <div class="flex flex-col justify-between space-y-6 text-center lg:text-left">
           <div class="space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-bold text-brand-400">
+            <h2 class="text-xl sm:text-3xl font-bold text-brand-400">
               Problemas Frecuentes y Guías
             </h2>
             <p class="text-brand-600 text-sm sm:text-base leading-relaxed">
