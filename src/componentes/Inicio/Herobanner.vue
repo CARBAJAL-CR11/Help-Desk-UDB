@@ -24,7 +24,7 @@
       <!-- Imagen del Manual -->
       <div class="w-full max-w-sm sm:max-w-md lg:max-w-lg flex justify-center items-center">
         <img 
-          src="../recursos/imgs/Manual.png" 
+          src="../../recursos/imgs/Manual.png" 
           alt="Manual Help Desk" 
           class="w-full h-auto object-contain drop-shadow-xl hover:scale-102 transition-transform duration-300"
         />
