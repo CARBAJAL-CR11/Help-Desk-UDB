@@ -17,7 +17,10 @@ export default {
           300: '#ABBDFF', // Morado palido
           400: '#3063FF', // Azul claro
           500: '#1242D6', // Azul estandar
-          600: '#486284' // Azul marino
+          600: '#486284', // Azul marino
+          700: '#F1F2F9', // Blanco fondo
+          800: '#1A202C', // Color Azul muy oscuro
+          900: '#D9DEE8' // Color gris levemente claro
         },
       }
     },

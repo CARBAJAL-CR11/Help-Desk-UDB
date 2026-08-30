@@ -1,95 +1,160 @@
 <template>
-    <nav class="bg-slate-900 border-b border-indigo-900/50 shadow-lg text-slate-100">
+  <!-- Navbar principal -->
+  <nav class="bg-brand-50 border-b border-brand-100 shadow-sm relative z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+      <div class="flex items-center justify-between h-20">
         
         <!-- Logo / Marca -->
-        <div class="flex-shrink-0 flex items-center space-x-2">
-          <div class="p-1.5 bg-gradient-to-tr from-violet-600 to-indigo-500 rounded-lg">
+        <RouterLink to="/" class="flex items-center gap-2 text-brand-500 font-bold text-xl">
+          <IconMessageCode class="w-8 h-8 text-brand-500 stroke-[2]" />
+          <span class="text-brand-500 font-bold text-xl tracking-tight">Help Desk</span>
+        </RouterLink>
 
-            <IconCloudFog class="h-6 w-6 text-white" />
+        <!-- Enlaces Escritorio / Tablet (Pantallas Medianas y Grandes) -->
+        <div class="hidden md:flex items-center space-x-1 sm:space-x-2">
+          <RouterLink 
+            to="/" 
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            :class="$route.path === '/' ? 'bg-brand-400 text-brand-50 hover:bg-brand-500 hover:text-gray-100' : 'text-brand-600 hover:text-brand-500'"
+          >
+            Inicio
+          </RouterLink>
 
+          <RouterLink 
+            to="/chat-soporte" 
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            :class="$route.path === '/chat-soporte' ? 'bg-brand-400 text-brand-50 hover:bg-brand-500 hover:text-gray-100' : 'text-brand-600 hover:text-brand-500'"
+          >
+            Soporte Técnico
+          </RouterLink>
 
-            
-          </div>
-          <span class="font-bold text-xl bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent">
-            Help Desk
-          </span>
+          <RouterLink 
+            to="/preguntas-frecuentes" 
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            :class="$route.path === '/preguntas-frecuentes' ? 'bg-brand-400 text-brand-50 hover:bg-brand-500 hover:text-gray-100' : 'text-brand-600 hover:text-brand-500'"
+          >
+            Preguntas Frecuentes
+          </RouterLink>
+
+          <RouterLink 
+            to="/sobre-nosotros" 
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            :class="$route.path === '/sobre-nosotros' ? 'bg-brand-400 text-brand-50 hover:bg-brand-500 hover:text-gray-100' : 'text-brand-600 hover:text-brand-500'"
+          >
+            Contáctanos
+          </RouterLink>
         </div>
 
-        <!-- Enlaces Escritorio -->
-        <div class="hidden md:flex space-x-2">
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
-            <IconHome class="w-5 h-5 text-violet-400" />
-            <span>Inicio</span>
-          </a>
-
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
-            <IconMessageChatbot class="w-5 h-5 text-violet-400" />
-            <span>Chat de Soporte</span>
-          </a>
-
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
-            <IconHelpCircle class="w-5 h-5 text-violet-400" />
-            <span>Problemas Comunes</span>
-          </a>
-
-          <a href="#" class="flex items-center gap-2 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200">
-            <IconInfoCircle class="w-5 h-5 text-violet-400" />
-            <span>Sobre Nosotros</span>
-          </a>
-        </div>
-
-        <!-- Botón Menú Móvil -->
+        <!-- Botón Menú Móvil (Solo visible en Móvil) -->
         <div class="md:hidden flex items-center">
           <button 
-            @click="isMenuOpen = !isMenuOpen"
-            class="text-slate-300 hover:text-white hover:bg-violet-900/40 p-2 rounded-lg focus:outline-none transition-colors"
+            @click="isMenuOpen = true"
+            class="text-brand-500 p-2 rounded-lg focus:outline-none hover:bg-brand-100 transition-colors"
           >
-            <IconMenu2 v-if="!isMenuOpen" class="w-6 h-6" />
-            <IconX v-else class="w-6 h-6" />
+            <IconMenu2 class="w-7 h-7" />
           </button>
         </div>
+
       </div>
-    </div>
-
-    <!-- Menú Desplegable Móvil -->
-    <div v-if="isMenuOpen" class="md:hidden bg-slate-900/95 border-b border-indigo-900/50 px-4 pt-2 pb-4 space-y-1 backdrop-blur-sm">
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
-        <IconHome class="w-5 h-5 text-violet-400" />
-        <span>Inicio</span>
-      </a>
-
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
-        <IconMessageChatbot class="w-5 h-5 text-violet-400" />
-        <span>Chat de Soporte</span>
-      </a>
-
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
-        <IconHelpCircle class="w-5 h-5 text-violet-400" />
-        <span>Problemas Comunes</span>
-      </a>
-
-      <a href="#" class="flex items-center gap-3 text-slate-300 hover:text-white hover:bg-violet-900/40 px-3 py-2 rounded-lg text-base font-medium transition-colors">
-        <IconInfoCircle class="w-5 h-5 text-violet-400" />
-        <span>Sobre Nosotros</span>
-      </a>
     </div>
   </nav>
 
+  <!-- Backdrop / Fondo oscuro al abrir sidebar móvil -->
+  <Transition name="fade">
+    <div 
+      v-if="isMenuOpen" 
+      @click="isMenuOpen = false" 
+      class="fixed inset-0 bg-black/20 backdrop-blur-xs z-40 md:hidden"
+    ></div>
+  </Transition>
+
+  <!-- Side-Bar Desplegable Móvil -->
+  <Transition name="slide">
+    <aside 
+      v-if="isMenuOpen" 
+      class="fixed top-0 right-0 h-full w-80 bg-brand-300 z-50 p-6 flex flex-col justify-start md:hidden shadow-2xl"
+    >
+      <!-- Cabecera del Sidebar con Título y Botón Cerrar (chevron) -->
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-white text-2xl font-bold tracking-wide">Navegación</h2>
+        <button 
+          @click="isMenuOpen = false" 
+          class="bg-brand-50 text-brand-500 p-1.5 rounded-xl shadow-md hover:scale-105 transition-transform flex items-center justify-center"
+        >
+          <IconChevronRight class="w-5 h-5 stroke-[2.5]" />
+        </button>
+      </div>
+
+      <!-- Menú de Enlaces Móvil -->
+      <div class="flex flex-col space-y-3 ">
+        <RouterLink 
+          to="/" 
+          @click="isMenuOpen = false"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
+        >
+          Inicio
+        </RouterLink>
+
+        <RouterLink 
+          to="/chat-soporte" 
+          @click="isMenuOpen = false"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/chat-soporte' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
+        >
+          Soporte Técnico
+        </RouterLink>
+
+        <RouterLink 
+          to="/preguntas-frecuentes" 
+          @click="isMenuOpen = false"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/preguntas-frecuentes' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
+        >
+          Preguntas Frecuentes
+        </RouterLink>
+
+        <RouterLink 
+          to="/sobre-nosotros" 
+          @click="isMenuOpen = false"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/sobre-nosotros' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
+        >
+          Contáctanos
+        </RouterLink>
+      </div>
+    </aside>
+  </Transition>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { 
-  IconHome, 
-  IconMessageChatbot, 
-  IconHelpCircle, 
-  IconInfoCircle, 
-  IconMenu2, 
-  IconX,
-  IconCloudFog 
-} from '@tabler/icons-vue'
+import { RouterLink, useRoute } from 'vue-router'
 
 const isMenuOpen = ref(false)
+const $route = useRoute()
 </script>
+
+<style scoped>
+/* Transición Deslizante del Sidebar */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+/* Transición del Fondo Opaco */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
