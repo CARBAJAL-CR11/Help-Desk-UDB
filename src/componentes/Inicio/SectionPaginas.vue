@@ -62,7 +62,7 @@
             </div>
           </div>
           <img 
-              src="../../recursos/imgs/Placeholder.png"  
+              src="../../recursos/imgs/PreguntasF.png"  
               alt="Problemas Frecuentes y Guías" 
               class="max-w-full h-auto object-contain drop-shadow-md hover:scale-102 transition-transform duration-300" 
               />
