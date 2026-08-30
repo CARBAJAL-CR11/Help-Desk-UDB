@@ -6,14 +6,24 @@
                 titulo="Preguntas Generales"
                 v-model="acordionAbierto"                
             >
-                <ListaPreguntaFrecuente
-                    titulo="¿Cuáles son sus horarios de atencion?"
-                    tipo="hijo"
-                />
-                <ListaPreguntaFrecuente
-                    titulo="¿Dónde están ubicados y cómo puedo llegar?"
-                    tipo="hijo"
-                />
+                <div @click="irADetalle('horarios')">
+                    <ListaPreguntaFrecuente
+                        titulo="¿Cuáles son sus horarios de atencion?"
+                        tipo="hijo"
+                    />
+                </div>
+                <div @click="irADetalle('ubicacion')">
+                    <ListaPreguntaFrecuente
+                        titulo="¿Dónde están ubicados y cómo puedo llegar?"
+                        tipo="hijo"                        
+                    />
+                </div>
+                <div @click="irADetalle('contacto')">
+                    <ListaPreguntaFrecuente
+                        titulo="¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?"
+                        tipo="hijo"                    
+                    />
+                </div>
             </ListaPreguntaFrecuente>
             <ListaPreguntaFrecuente
                 titulo="Pedidos y Compras"
@@ -36,8 +46,19 @@
 </template>
 
 <script setup>
-    import ListaPreguntaFrecuente from '@/componentes/ListaPreguntaFrecuente.vue';
+    import ListaPreguntaFrecuente from '@/componentes/preguntasFrecuentes/ListaPreguntaFrecuente.vue';
     import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
 
     const acordionAbierto = ref('');
+
+    const irADetalle = (clavePregunta) => {
+        console.log('Navegando a la clave:', clavePregunta);
+        router.push({
+            name: 'preguntas-frecuentes-contenido', // Cambia esto por el nombre de tu ruta de detalle
+            query: { pregunta: clavePregunta }
+        });
+    };
 </script>
