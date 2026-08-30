@@ -5,6 +5,7 @@ import VistaInicio from "@/vistas/VistaInicio.vue";
 import VistaChat from "@/vistas/VistaChat.vue";
 import VistaSobreNosotros from "@/vistas/VistaSobreNosotros.vue";
 import VistaPreguntasFrecuentes from "@/vistas/VistaPreguntasFrecuentes.vue";
+import ContenidoPregunta from "@/vistas/ContenidoPregunta.vue";
 
 // Manejo del router para el cambio de vistas y uso de URL
 const router = createRouter({
@@ -36,6 +37,13 @@ const router = createRouter({
             path: '/preguntas-frecuentes',
             name: 'preguntas-frecuentes',
             component: VistaPreguntasFrecuentes
+
+        },
+        {
+            // Ruta para redirigir al contenido de la pregunta
+            path: '/preguntas-frecuentes/contenido',
+            name: 'preguntas-frecuentes-contenido',
+            component: ContenidoPregunta
 
         },
         {
