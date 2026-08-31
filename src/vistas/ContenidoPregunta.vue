@@ -30,6 +30,9 @@
                     </li>
                 </ul>
                 </div>
+                <div class="flex flex-col items-center">
+                    <img class="text-" src="../recursos/imgs/ubicacion.png" alt="ubicacion" width="500">
+                </div>
             </section>
         </main>
     </div>
