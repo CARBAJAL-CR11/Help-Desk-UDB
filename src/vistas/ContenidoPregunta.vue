@@ -16,7 +16,7 @@
                 </p>
 
                 <div class="space-y-4 pt-2">
-                <h3 class="font-bold text-slate-900">Opciones para llegar:</h3>
+                <h3 class="font-bold text-brand-800">Opciones para llegar:</h3>
                 
                 <ul class="list-disc pl-5 space-y-3 text-brand-800">
                     <li>
@@ -32,6 +32,39 @@
                 </div>
                 <div class="flex flex-col items-center">
                     <img class="text-" src="../recursos/imgs/ubicacion.png" alt="ubicacion" width="500">
+                </div>
+            </section>
+            <section v-if="preguntaActiva === 'contacto'" class="space-y-6 text-slate-800">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-6">
+                ¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?
+                </h2>
+                <div class="space-y-4 leading-relaxed">
+                    <p class="font-semibold text-brand-800">
+                        Puedes comunicarte con nuestro equipo de atención al cliente a través de varios canales:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-3 text-brand-800">
+                        <li><strong>Correo electrónico:</strong> Envíanos un mensaje a <a href="mailto:soporte@ejemplo.com" class="text-brand-600 underline font-medium">soporte@ejemplo.com</a> y te responderemos en un plazo máximo de 24 horas laborables.</li>
+                        <li><strong>Teléfono / WhatsApp:</strong> Llámanos o escríbenos al <span class="font-semibold">+34 900 000 000</span>.</li>
+                        <li><strong>Formulario web:</strong> Puedes rellenar el formulario en la sección de contacto de nuestra página para recibir asistencia directa.</li>
+                    </ul>
+                </div>
+            </section>
+            <section v-if="preguntaActiva === 'horarios'" class="space-y-6 text-slate-800">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-6">
+                ¿Cuáles son sus horarios de atencion?
+                </h2>
+                <div class="space-y-4 leading-relaxed">
+                    <p class="font-semibold text-brand-800">
+                        Nuestro horario de atención al público y soporte técnico es el siguiente:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-3 text-brand-800">
+                        <li><strong>De Lunes a Viernes:</strong> 9:00 h a 18:00 h (ininterrumpido).</li>
+                        <li><strong>Sábados:</strong> 10:00 h a 14:00 h.</li>
+                        <li><strong>Domingos y festivos:</strong> Cerrado.</li>
+                    </ul>
+                    <p class="font-semibold text-brand-800">
+                        * Nota: Si nos escribes fuera de este horario, procesaremos tu solicitud al inicio del siguiente día hábil.
+                    </p>
                 </div>
             </section>
         </main>
