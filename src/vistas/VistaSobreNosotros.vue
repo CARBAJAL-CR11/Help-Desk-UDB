@@ -33,35 +33,35 @@
                 nombre="Jonathan Marchelli"
                 correo="jonathan.marchelli@gmail.com"
                 descripcion="MH240464"
-                imagen="./src/recursos/imgs/JM.jpg"
+                imagen="../recursos/imgs/JM.jpg" 
             />
             <TarjetaNuestroEquipo
                 numero="02"
                 nombre="David Flores"
                 correo="davidghjg@gmail.com"
                 descripcion="FV241458"
-                imagen="./src/recursos/imgs/DF.jpg"
+                imagen="../recursos/imgs/DF.jpg"
             />
             <TarjetaNuestroEquipo
                 numero="03"
                 nombre="Cristian Rodríguez"
                 correo="cr4133668@gmail.com"
                 descripcion="RC240322"
-                imagen="./src/recursos/imgs/CR.jpg"
+                imagen="../recursos/imgs/CR.jpg"
             />
             <TarjetaNuestroEquipo
                 numero="04"
                 nombre="Daniel Hernández"
                 correo="dev.dnlhernandez@gmail.com"
                 descripcion="HF240758"
-                imagen="./src/recursos/imgs/DH.jpg"
+                imagen="../recursos/imgs/DH.jpg"
             />
             <TarjetaNuestroEquipo
                 numero="05"
                 nombre="Leonardo Peñate"
                 correo="rzleonardo14@gmail.com"
                 descripcion="PF231653"
-                imagen="./src/recursos/imgs/LP.jpg"
+                imagen="../recursos/imgs/LP.jpg"
             />
         </div>
       </section>
