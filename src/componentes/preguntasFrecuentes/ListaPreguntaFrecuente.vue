@@ -1,8 +1,8 @@
 <template>
     <!-- Componente del acordion padre -->
-    <div v-if="props.tipo === 'padre'" class="w-full xl:max-w-6xl md:max-w-2xl max-w-xl mt-6 cursor-pointer">
+    <div v-if="props.tipo === 'padre'" class="w-full xl:max-w-6xl md:max-w-2xl sm:max-w-xl max-w-xs mt-6 cursor-pointer">
         <div @click="toggleAcordion" class="flex items-center justify-between rounded-r-xl bg-brand-50 p-6 shadow-md border-l-4 border-brand-300">
-            <h3 class="text-xl font-bold text-brand-400">
+            <h3 class="sm:text-xl text-md font-bold text-brand-400">
                 {{props.titulo}}
             </h3>  
             <button class="text-gray-400 hover:text-gray-600 transition-colors" :class="{'rotate-180' : isOpen}">
@@ -24,7 +24,7 @@
     <!-- Componente del acordion hijo -->
     <div v-if="props.tipo === 'hijo'" @click="$emit('click', $event)">
         <RouterLink to="/preguntas-frecuentes/contenido" class="flex items-center justify-between rounded-r-xl bg-brand-50 p-6 shadow-md border-l-4 border-brand-300 cursor-pointer hover:bg-brand-700 transition-colors">
-            <h3 class="text-xl font-bold text-brand-600"> 
+            <h3 class="sm:text-xl text-md font-bold text-brand-600"> 
                 {{props.titulo}}
             </h3>  
             <button class="text-gray-400 hover:text-gray-600 transition-colors">

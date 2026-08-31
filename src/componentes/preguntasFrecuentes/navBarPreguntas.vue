@@ -78,9 +78,9 @@
     <Transition name="slide">
         <Teleport to="body">
             <nav v-if="menuAbierto">
-                <div class="fixed top-0 left-0 z-50 md:max-w-lg max-w-sm bg-brand-500 min-h-screen p-6 flex flex-col items-center overflow-y-auto lg:hidden shadow-2xl">
+                <div class="fixed top-0 left-0 z-50 md:max-w-lg max-w-sm bg-brand-500 h-screen p-6 flex flex-col items-center overflow-y-auto lg:hidden shadow-2xl">
                     <div class="w-full flex justify-between items-center mb-8">
-                        <h1 class="text-2xl font-bold text-white mb-8 text-center">
+                        <h1 class="md:text-2xl text-xl font-bold text-white mb-8 text-center">
                         Preguntas Frecuentes
                         </h1>
                         <button 
