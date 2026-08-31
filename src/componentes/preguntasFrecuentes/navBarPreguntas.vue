@@ -77,73 +77,71 @@
     </Transition>
     <Transition name="slide">
         <Teleport to="body">
-            <nav v-if="menuAbierto">
-                <div class="fixed top-0 left-0 z-50 md:max-w-lg max-w-sm bg-brand-500 h-screen p-6 flex flex-col items-center overflow-y-auto lg:hidden shadow-2xl">
-                    <div class="w-full flex justify-between items-center mb-8">
-                        <h1 class="md:text-2xl text-xl font-bold text-white mb-8 text-center">
-                        Preguntas Frecuentes
-                        </h1>
-                        <button 
-                        @click="menuAbierto = false"
-                        class="text-brand-50 py-2 px-3 rounded-lg focus:outline-none bg-brand-50 hover:bg-brand-100"
-                        >
-                            <IconChevronLeft stroke={2} color="#1242D6" />
-                        </button>
-                    </div>
-            
-                    <div class="w-full space-y-4 text-base">
-                        <ListaPreguntaFrecuente 
-                            tipo="padre" 
-                            titulo="Preguntas Generales" 
-                            v-model="acordionAbierto"
-                        >
-                            <ListaPreguntaFrecuente 
-                            tipo="hijo" 
-                            titulo="¿Cuáles son sus horarios de atencion?" 
-                            @click="seleccionarPregunta('horarios'); menuAbierto = false;"
-                            :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'horarios' }"
-                            />
-                            
-                            <ListaPreguntaFrecuente 
-                            tipo="hijo" 
-                            titulo="¿Dónde están ubicados y cómo puedo llegar?" 
-                            @click="seleccionarPregunta('ubicacion'); menuAbierto = false;"
-                            :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'ubicacion' }"
-                            />
-                            
-                            <ListaPreguntaFrecuente 
-                            tipo="hijo" 
-                            titulo="¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?" 
-                            @click="seleccionarPregunta('contacto'); menuAbierto = false;"
-                            :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'contacto' }"
-                            />
-                        </ListaPreguntaFrecuente>
-                
-                        <ListaPreguntaFrecuente 
-                            tipo="padre" 
-                            titulo="Pedidos y Compras" 
-                            v-model="acordionAbierto"
-                        />
-                
-                        <ListaPreguntaFrecuente 
-                            tipo="padre" 
-                            titulo="Envíos y Entregas" 
-                            v-model="acordionAbierto"
-                        />
-                
-                        <ListaPreguntaFrecuente 
-                            tipo="padre" 
-                            titulo="Devoluciones y Garantías" 
-                            v-model="acordionAbierto"
-                        />
-                        <ListaPreguntaFrecuente 
-                            tipo="padre" 
-                            titulo="Productos e Inventario" 
-                            v-model="acordionAbierto"
-                        />
-                    </div>
+            <div v-if="menuAbierto" class="fixed top-0 left-0 z-50 md:max-w-lg max-w-sm bg-brand-500 h-screen p-6 flex flex-col items-center overflow-y-auto lg:hidden shadow-2xl">
+                <div class="w-full flex justify-between items-center mb-8">
+                    <h1 class="md:text-2xl text-xl font-bold text-white mb-8 text-center">
+                    Preguntas Frecuentes
+                    </h1>
+                    <button 
+                    @click="menuAbierto = false"
+                    class="text-brand-50 py-2 px-3 rounded-lg focus:outline-none bg-brand-50 hover:bg-brand-100"
+                    >
+                        <IconChevronLeft stroke={2} color="#1242D6" />
+                    </button>
                 </div>
-            </nav>
+        
+                <div class="w-full space-y-4 text-base">
+                    <ListaPreguntaFrecuente 
+                        tipo="padre" 
+                        titulo="Preguntas Generales" 
+                        v-model="acordionAbierto"
+                    >
+                        <ListaPreguntaFrecuente 
+                        tipo="hijo" 
+                        titulo="¿Cuáles son sus horarios de atencion?" 
+                        @click="seleccionarPregunta('horarios'); menuAbierto = false;"
+                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'horarios' }"
+                        />
+                        
+                        <ListaPreguntaFrecuente 
+                        tipo="hijo" 
+                        titulo="¿Dónde están ubicados y cómo puedo llegar?" 
+                        @click="seleccionarPregunta('ubicacion'); menuAbierto = false;"
+                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'ubicacion' }"
+                        />
+                        
+                        <ListaPreguntaFrecuente 
+                        tipo="hijo" 
+                        titulo="¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?" 
+                        @click="seleccionarPregunta('contacto'); menuAbierto = false;"
+                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'contacto' }"
+                        />
+                    </ListaPreguntaFrecuente>
+            
+                    <ListaPreguntaFrecuente 
+                        tipo="padre" 
+                        titulo="Pedidos y Compras" 
+                        v-model="acordionAbierto"
+                    />
+            
+                    <ListaPreguntaFrecuente 
+                        tipo="padre" 
+                        titulo="Envíos y Entregas" 
+                        v-model="acordionAbierto"
+                    />
+            
+                    <ListaPreguntaFrecuente 
+                        tipo="padre" 
+                        titulo="Devoluciones y Garantías" 
+                        v-model="acordionAbierto"
+                    />
+                    <ListaPreguntaFrecuente 
+                        tipo="padre" 
+                        titulo="Productos e Inventario" 
+                        v-model="acordionAbierto"
+                    />
+                </div>
+            </div>
         </Teleport>
     </Transition>
 </template>
