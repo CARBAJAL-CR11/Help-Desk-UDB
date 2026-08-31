@@ -1,6 +1,6 @@
 <template>
     <div class="my-20">
-        <h1 class="text-4xl text-center text-brand-500 font-bold">Preguntas Frecuentes</h1>
+        <h1 class="sm:text-4xl text-2xl text-center text-brand-500 font-bold">Preguntas Frecuentes</h1>
         <div class="mt-14 flex flex-col items-center">
             <ListaPreguntaFrecuente
                 titulo="Preguntas Generales"
