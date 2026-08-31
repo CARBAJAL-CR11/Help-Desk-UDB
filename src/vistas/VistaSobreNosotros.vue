@@ -33,35 +33,35 @@
                 nombre="Jonathan Marchelli"
                 correo="jonathan.marchelli@gmail.com"
                 descripcion="MH240464"
-                imagen="../../src\recursos\imgs\JM.jpg" 
+                :imagen="JM" 
             />
             <TarjetaNuestroEquipo
                 numero="02"
                 nombre="David Flores"
                 correo="davidghjg@gmail.com"
                 descripcion="FV241458"
-                imagen="../../src\recursos\imgs\DF.jpg"
+                :imagen="DF"
             />
             <TarjetaNuestroEquipo
                 numero="03"
                 nombre="Cristian Rodríguez"
                 correo="cr4133668@gmail.com"
                 descripcion="RC240322"
-                imagen="../../src\recursos\imgs\CR.jpg"
+                :imagen="CR"
             />
             <TarjetaNuestroEquipo
                 numero="04"
                 nombre="Daniel Hernández"
                 correo="dev.dnlhernandez@gmail.com"
                 descripcion="HF240758"
-                imagen="../../src\recursos\imgs\DH.jpg"
+                :imagen="DH"
             />
             <TarjetaNuestroEquipo
                 numero="05"
                 nombre="Leonardo Peñate"
                 correo="rzleonardo14@gmail.com"
                 descripcion="PF231653"
-                imagen="../../src\recursos\imgs\LP.jpg"
+                :imagen="LP"
             />
         </div>
       </section>
@@ -75,4 +75,9 @@
 <script setup>
     import TarjetaNuestroEquipo from '@/componentes/SobreNosotros/TarjetaNuestroEquipo.vue';
     import FormularioEnviarComentario from '@/componentes/SobreNosotros/FormularioEnviarComentario.vue';
+    import JM from '@/recursos/imgs/JM.jpg';
+    import DF from '@/recursos/imgs/DF.jpg';
+    import CR from '@/recursos/imgs/CR.jpg';
+    import DH from '@/recursos/imgs/DH.jpg';
+    import LP from '@/recursos/imgs/LP.jpg';
 </script>
