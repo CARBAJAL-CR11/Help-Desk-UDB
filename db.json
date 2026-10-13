@@ -1,0 +1,71 @@
+{
+  "categorias": [
+    {
+      "id": "1",
+      "titulo": "Preguntas Generales",
+      "icon": "IconZoomQuestion",
+      "problemas": [
+        {
+          "id": "p-101",
+          "titulo": "Errores en facturación o cobro",
+          "subtitulo": "Descarga de facturas, corrección de datos y recibos",
+          "descripcion": "¿Hiciste un cargo a tu cuenta pero no recibiste la factura o tu comprobante tiene un error en los datos fiscales? Te guiamos para reenviar o corregir tu comprobante de compra inmediatamente.",
+          "icon": "IconError404Off",
+          "imagenes": [
+            "/uploads/facturacion-error-muestra.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "titulo": "Pedidos y Compras",
+      "icon": "IconShoppingCart",
+      "problemas": [
+        {
+          "id": "p-201",
+          "titulo": "Fallas al comprar o en el carrito",
+          "subtitulo": "Error en pasarela de pagos, stock y carrito bloqueado",
+          "descripcion": "¿Te apareció un error al intentar agregar un producto o la página falló al procesar el pago? Consulta cómo restablecer tu carrito o completar tu compra de forma segura.",
+          "icon": "IconShoppingCartX",
+          "imagenes": []
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "titulo": "Envíos y Entregas",
+      "icon": "IconTruckDelivery",
+      "problemas": []
+    },
+    {
+      "id": "4",
+      "titulo": "Devoluciones y Garantías",
+      "icon": "IconRefresh",
+      "problemas": []
+    },
+    {
+      "id": "5",
+      "titulo": "Productos e Inventario",
+      "icon": "IconBox",
+      "problemas": []
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat-uuid-001",
+      "sessionId": "guest-session-123",
+      "usuario": "Invitado_101",
+      "estado": "activo",
+      "creadoEn": "2026-10-13T12:00:00Z",
+      "mensajes": [
+        {
+          "id": 1,
+          "emisor": "usuario",
+          "texto": "Hola, necesito asistencia con una factura",
+          "timestamp": "2026-10-13T12:01:00Z"
+        }
+      ]
+    }
+  ]
+}
