@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-brand-700 min-h-screen py-20 px-14 sm:px-20 md:px-24 lg:px-8">
+  <section class="bg-brand-700 min-h-screen py-20 px-14 sm:px-20 md:px-24 lg:px-8 flex justify-center items-center">
     <div class="max-w-7xl mx-auto flex flex-col items-center">
       
       <!-- Encabezado Principal -->
