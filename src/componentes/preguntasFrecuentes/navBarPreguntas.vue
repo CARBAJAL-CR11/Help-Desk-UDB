@@ -1,5 +1,6 @@
 <template>
     <nav>
+        
         <div class="lg:hidden mt-5 ml-5">
             <button 
             @click="menuAbierto = true"
@@ -149,7 +150,7 @@
     import { ref } from 'vue';
     import ListaPreguntaFrecuente from '@/componentes/preguntasFrecuentes/ListaPreguntaFrecuente.vue';
     // Controla cuál categoría principal está abierta
-    const acordionAbierto = ref('Preguntas Generales');
+    const acordionAbierto = ref();
     const menuAbierto = ref(false);
 
     // Controla cuál sub-pregunta está seleccionada para mostrar su respuesta en la derecha

@@ -36,7 +36,7 @@ const router = createRouter({
             // Ruta para preguntas frecuentes
             path: '/preguntas-frecuentes',
             name: 'preguntas-frecuentes',
-            component: VistaPreguntasFrecuentes
+            component: ContenidoPregunta
 
         },
         {
