@@ -14,6 +14,16 @@
           "imagenes": [
             "/uploads/facturacion-error-muestra.png"
           ]
+        }, 
+        {
+          "id": "p-102",
+          "titulo": "Páginas no disponibles o fallas de red",
+          "subtitulo": "Productos descontinuados y problemas de conexión",
+          "descripcion": "¿Llegaste a una página no encontrada (error 404), un producto no carga o se interrumpió la conexión? Te ayudamos a localizar el artículo o restablecer la sesión de tu navegador.",
+          "icon": "IconBroadcastOff",
+          "imagenes": [
+            "/uploads/Pagina404.png"
+          ]
         }
       ]
     },
@@ -36,19 +46,46 @@
       "id": "3",
       "titulo": "Envíos y Entregas",
       "icon": "IconTruckDelivery",
-      "problemas": []
+      "problemas": [
+        {
+          "id": "p-301",
+          "titulo": "Demora en el envío o paquete extraviado",
+          "subtitulo": "Rastreo de guía, tiempos de entrega y logística",
+          "descripcion": "¿Tu pedido supera el tiempo estimado de entrega o el código de rastreo no actualiza el estado? Te explicamos cómo verificar la ubicación del paquete o solicitar un reenvío prioritario.",
+          "icon": "IconTruckDelivery",
+          "imagenes": []
+        }
+      ]
     },
     {
       "id": "4",
       "titulo": "Devoluciones y Garantías",
       "icon": "IconRefresh",
-      "problemas": []
+      "problemas": [
+        {
+          "id": "p-401",
+          "titulo": "Solicitud de devolución o producto defectuoso",
+          "subtitulo": "Políticas de garantía, cambios y reembolso",
+          "descripcion": "¿Recibiste un artículo averiado o necesitas realizar un cambio dentro del plazo de garantía? Revisa los pasos para generar la etiqueta de retorno e iniciar el proceso de reembolso.",
+          "icon": "IconRefresh",
+          "imagenes": []
+        }
+      ]
     },
     {
       "id": "5",
       "titulo": "Productos e Inventario",
       "icon": "IconBox",
-      "problemas": []
+      "problemas": [
+        {
+          "id": "p-501",
+          "titulo": "Sin stock disponible o especificaciones",
+          "subtitulo": "Disponibilidad de catálogo y alertas de resurtido",
+          "descripcion": "¿El producto que deseas aparece como agotado? Activa las notificaciones de resurtido o consulta alternativas similares dentro de nuestro catálogo actualizado.",
+          "icon": "IconBox",
+          "imagenes": []
+        }
+      ]
     }
   ],
   "chats": [
