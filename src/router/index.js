@@ -4,7 +4,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import VistaInicio from "@/vistas/VistaInicio.vue";
 import VistaChat from "@/vistas/VistaChat.vue";
 import VistaSobreNosotros from "@/vistas/VistaSobreNosotros.vue";
-import VistaPreguntasFrecuentes from "@/vistas/VistaPreguntasFrecuentes.vue";
 import ContenidoPregunta from "@/vistas/ContenidoPregunta.vue";
 
 // Manejo del router para el cambio de vistas y uso de URL
@@ -41,8 +40,8 @@ const router = createRouter({
         },
         {
             // Ruta para redirigir al contenido de la pregunta
-            path: '/preguntas-frecuentes/contenido',
-            name: 'preguntas-frecuentes-contenido',
+            path: '/preguntas-frecuentes/:pregunta',
+            name: 'pregunta-detalle',
             component: ContenidoPregunta
 
         },

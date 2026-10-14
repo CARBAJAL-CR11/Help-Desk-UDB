@@ -23,19 +23,18 @@
     </div>
     <!-- Componente del acordion hijo -->
     <div v-if="props.tipo === 'hijo'" @click="$emit('click', $event)">
-        <RouterLink to="/preguntas-frecuentes/contenido" class="flex items-center justify-between rounded-r-xl bg-brand-50 p-6 shadow-md border-l-4 border-brand-300 cursor-pointer hover:bg-brand-700 transition-colors">
+        <div class="flex items-center justify-between rounded-r-xl bg-brand-50 p-6 shadow-md border-l-4 border-brand-300 cursor-pointer hover:bg-brand-700 transition-colors">
             <h3 class="sm:text-xl text-md font-bold text-brand-600"> 
                 {{props.titulo}}
             </h3>  
             <button class="text-gray-400 hover:text-gray-600 transition-colors">
                 <IconChevronRight stroke={2} color="#6F6C8F" />
             </button>
-        </RouterLink>
+        </div>
     </div>
 </template>
 <script setup>
     import { ref, computed } from 'vue';
-    import { RouterLink } from 'vue-router';
     defineEmits(['click']);
     const props = defineProps({
         titulo: {

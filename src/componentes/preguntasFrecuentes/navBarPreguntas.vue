@@ -1,6 +1,6 @@
 <template>
     <nav>
-        
+        <!-- Botón Móvil -->
         <div class="lg:hidden mt-5 ml-5">
             <button 
             @click="menuAbierto = true"
@@ -9,64 +9,37 @@
                 <IconProgressHelp stroke={2} color="#ffffff" class="w-8 h-8"/>
             </button>
         </div>
+
+        <!-- Menú Escritorio -->
         <div class="w-full lg:max-w-xl bg-brand-500 min-h-screen p-6 sm:p-8 hidden lg:flex flex-col items-center shrink-0">
             <h1 class="text-2xl font-bold text-brand-50 mb-8 text-center">
             Preguntas Frecuentes
             </h1>
     
             <div class="w-full space-y-4 text-xl">
-            <ListaPreguntaFrecuente 
-                tipo="padre" 
-                titulo="Preguntas Generales" 
-                v-model="acordionAbierto"
-            >
+                <!-- Iteración dinámica de categorías -->
                 <ListaPreguntaFrecuente 
-                tipo="hijo" 
-                titulo="¿Cuáles son sus horarios de atencion?" 
-                @click="seleccionarPregunta('horarios')"
-                :class="{ '!bg-brand-900 !text-brand-50': preguntaSeleccionada === 'horarios' }"
-                />
-                
-                <ListaPreguntaFrecuente 
-                tipo="hijo" 
-                titulo="¿Dónde están ubicados y cómo puedo llegar?" 
-                @click="seleccionarPregunta('ubicacion')"
-                :class="{ '!bg-brand-900 !text-brand-50': preguntaSeleccionada === 'ubicacion' }"
-                />
-                
-                <ListaPreguntaFrecuente 
-                tipo="hijo" 
-                titulo="¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?" 
-                @click="seleccionarPregunta('contacto')"
-                :class="{ '!bg-brand-900 !text-brand-50': preguntaSeleccionada === 'contacto' }"
-                />
-            </ListaPreguntaFrecuente>
-    
-            <ListaPreguntaFrecuente 
-                tipo="padre" 
-                titulo="Pedidos y Compras" 
-                v-model="acordionAbierto"
-            />
-    
-            <ListaPreguntaFrecuente 
-                tipo="padre" 
-                titulo="Envíos y Entregas" 
-                v-model="acordionAbierto"
-            />
-    
-            <ListaPreguntaFrecuente 
-                tipo="padre" 
-                titulo="Devoluciones y Garantías" 
-                v-model="acordionAbierto"
-            />
-            <ListaPreguntaFrecuente 
-                tipo="padre" 
-                titulo="Productos e Inventario" 
-                v-model="acordionAbierto"
-            />
+                    v-for="categoria in categorias" 
+                    :key="categoria.id"
+                    tipo="padre" 
+                    :titulo="categoria.titulo" 
+                    v-model="acordionAbierto"
+                >
+                    <!-- Iteración dinámica de problemas (preguntas hijas) -->
+                    <ListaPreguntaFrecuente 
+                        v-for="problema in categoria.problemas"
+                        :key="problema.id"
+                        tipo="hijo" 
+                        :titulo="problema.titulo" 
+                        @click="seleccionarPregunta(problema.id)"
+                        :class="{ '!bg-brand-900 !text-brand-50': preguntaSeleccionada === problema.id }"
+                    />
+                </ListaPreguntaFrecuente>
             </div>
         </div>
     </nav>
+
+    <!-- Overlay Móvil -->
     <Transition name="fade">
         <Teleport to="body">
             <div 
@@ -76,6 +49,8 @@
             ></div>
         </Teleport>
     </Transition>
+
+    <!-- Menú Móvil -->
     <Transition name="slide">
         <Teleport to="body">
             <div v-if="menuAbierto" class="fixed top-0 left-0 z-50 md:max-w-lg max-w-sm bg-brand-500 h-screen p-6 flex flex-col items-center overflow-y-auto lg:hidden shadow-2xl">
@@ -92,95 +67,94 @@
                 </div>
         
                 <div class="w-full space-y-4 text-base">
+                    <!-- Iteración dinámica para móvil -->
                     <ListaPreguntaFrecuente 
+                        v-for="categoria in categorias" 
+                        :key="categoria.id"
                         tipo="padre" 
-                        titulo="Preguntas Generales" 
+                        :titulo="categoria.titulo" 
                         v-model="acordionAbierto"
                     >
                         <ListaPreguntaFrecuente 
-                        tipo="hijo" 
-                        titulo="¿Cuáles son sus horarios de atencion?" 
-                        @click="seleccionarPregunta('horarios'); menuAbierto = false;"
-                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'horarios' }"
-                        />
-                        
-                        <ListaPreguntaFrecuente 
-                        tipo="hijo" 
-                        titulo="¿Dónde están ubicados y cómo puedo llegar?" 
-                        @click="seleccionarPregunta('ubicacion'); menuAbierto = false;"
-                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'ubicacion' }"
-                        />
-                        
-                        <ListaPreguntaFrecuente 
-                        tipo="hijo" 
-                        titulo="¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?" 
-                        @click="seleccionarPregunta('contacto'); menuAbierto = false;"
-                        :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === 'contacto' }"
+                            v-for="problema in categoria.problemas"
+                            :key="problema.id"
+                            tipo="hijo" 
+                            :titulo="problema.titulo" 
+                            @click="seleccionarPregunta(problema.id); menuAbierto = false;"
+                            :class="{ '!bg-slate-600 !text-white': preguntaSeleccionada === problema.id }"
                         />
                     </ListaPreguntaFrecuente>
-            
-                    <ListaPreguntaFrecuente 
-                        tipo="padre" 
-                        titulo="Pedidos y Compras" 
-                        v-model="acordionAbierto"
-                    />
-            
-                    <ListaPreguntaFrecuente 
-                        tipo="padre" 
-                        titulo="Envíos y Entregas" 
-                        v-model="acordionAbierto"
-                    />
-            
-                    <ListaPreguntaFrecuente 
-                        tipo="padre" 
-                        titulo="Devoluciones y Garantías" 
-                        v-model="acordionAbierto"
-                    />
-                    <ListaPreguntaFrecuente 
-                        tipo="padre" 
-                        titulo="Productos e Inventario" 
-                        v-model="acordionAbierto"
-                    />
                 </div>
             </div>
         </Teleport>
     </Transition>
 </template>
+
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
+    import { useRouter, useRoute } from 'vue-router';
     import ListaPreguntaFrecuente from '@/componentes/preguntasFrecuentes/ListaPreguntaFrecuente.vue';
-    // Controla cuál categoría principal está abierta
+    import { obtenerCategorias } from '@/servicios/GetPreguntas.js';
+    
+
+    const router = useRouter();
+    const route = useRoute();
+
+    const categorias = ref([]);
     const acordionAbierto = ref();
     const menuAbierto = ref(false);
 
-    // Controla cuál sub-pregunta está seleccionada para mostrar su respuesta en la derecha
     const preguntaSeleccionada = defineModel({
         type: String,
         default: ''
     });
 
     const seleccionarPregunta = (key) => {
-    preguntaSeleccionada.value = key;
+        preguntaSeleccionada.value = key;
+
+        router.push({ 
+            name: 'pregunta-detalle', 
+            params: { pregunta: key } 
+        });
     };
+
+    
+
+    const cargarDatos = async () => {
+        try {
+            const data = await obtenerCategorias();
+            categorias.value = data;
+        } catch (error) {
+            console.error('Hubo un error cargando las categorías en el componente', error);
+        }
+    };
+
+    onMounted(() => {
+        cargarDatos(); 
+        if(route.params.pregunta) {
+            preguntaSeleccionada.value = route.params.pregunta;
+        }
+    });
 </script>
+
 <style scoped>
     .slide-enter-active,
     .slide-leave-active {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .slide-enter-from,
     .slide-leave-to {
-    transform: translateX(-100%);
+        transform: translateX(-100%);
     }
 
     .fade-enter-active,
     .fade-leave-active {
-    transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease;
     }
 
     .fade-enter-from,
     .fade-leave-to {
-    opacity: 0;
+        opacity: 0;
     }
 </style>
