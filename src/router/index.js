@@ -6,6 +6,8 @@ import VistaChat from "@/vistas/VistaChat.vue";
 import VistaSobreNosotros from "@/vistas/VistaSobreNosotros.vue";
 import VistaPreguntasFrecuentes from "@/vistas/VistaPreguntasFrecuentes.vue";
 import ContenidoPregunta from "@/vistas/ContenidoPregunta.vue";
+import VistaAdministracionPreguntasFrecuentes from "@/vistas/administrador/VistaAdministracionPreguntasFrecuentes.vue";
+import VistaAdministracionPorblemas from "@/vistas/administrador/VistaAdministracionPorblemas.vue";
 
 // Manejo del router para el cambio de vistas y uso de URL
 const router = createRouter({
@@ -44,6 +46,20 @@ const router = createRouter({
             path: '/preguntas-frecuentes/contenido',
             name: 'preguntas-frecuentes-contenido',
             component: ContenidoPregunta
+
+        },
+        {
+            // Ruta para admin preguntas frecuentes
+            path: '/administracion-preguntas-frecuentes',
+            name: 'administracion-preguntas-frecuentes',
+            component: VistaAdministracionPreguntasFrecuentes
+
+        },
+        {
+            // Ruta para admin problemas
+            path: '/administracion-problemas',
+            name: 'administracion-problemas',
+            component: VistaAdministracionPorblemas
 
         },
         {
