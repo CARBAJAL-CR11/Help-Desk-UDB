@@ -4,7 +4,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import VistaInicio from "@/vistas/VistaInicio.vue";
 import VistaChat from "@/vistas/VistaChat.vue";
 import VistaSobreNosotros from "@/vistas/VistaSobreNosotros.vue";
-import VistaPreguntasFrecuentes from "@/vistas/VistaPreguntasFrecuentes.vue";
 import ContenidoPregunta from "@/vistas/ContenidoPregunta.vue";
 import VistaAdministracionPreguntasFrecuentes from "@/vistas/administrador/VistaAdministracionPreguntasFrecuentes.vue";
 import VistaAdministracionPorblemas from "@/vistas/administrador/VistaAdministracionPorblemas.vue";
@@ -38,13 +37,13 @@ const router = createRouter({
             // Ruta para preguntas frecuentes
             path: '/preguntas-frecuentes',
             name: 'preguntas-frecuentes',
-            component: VistaPreguntasFrecuentes
+            component: ContenidoPregunta
 
         },
         {
             // Ruta para redirigir al contenido de la pregunta
-            path: '/preguntas-frecuentes/contenido',
-            name: 'preguntas-frecuentes-contenido',
+            path: '/preguntas-frecuentes/:pregunta',
+            name: 'pregunta-detalle',
             component: ContenidoPregunta
 
         },
