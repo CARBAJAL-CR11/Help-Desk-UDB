@@ -1,24 +1,13 @@
 {
   "categorias": [
     {
-      "id": "1",
-      "titulo": "Preguntas Generales",
-      "icon": "IconZoomQuestion",
-      "problemas": [
-        {
-          "id": "p-101",
-          "titulo": "Errores en facturación o cobro",
-          "subtitulo": "Descarga de facturas, corrección de datos y recibos",
-          "descripcion": "¿Hiciste un cargo a tu cuenta pero no recibiste la factura o tu comprobante tiene un error en los datos fiscales? Te guiamos para reenviar o corregir tu comprobante de compra inmediatamente.",
-          "icon": "IconError404Off",
-          "imagenes": [
-            "/uploads/facturacion-error-muestra.png"
-          ]
-        }
-      ]
+      "id": 1,
+      "titulo": "Preguntas Generales 123",
+      "icon": "IconZoom",
+      "problemas": []
     },
     {
-      "id": "2",
+      "id": 2,
       "titulo": "Pedidos y Compras",
       "icon": "IconShoppingCart",
       "problemas": [
@@ -33,22 +22,45 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "titulo": "Envíos y Entregas",
       "icon": "IconTruckDelivery",
-      "problemas": []
+      "problemas": [
+        {
+          "id": "p-301",
+          "titulo": "ggggggggg",
+          "subtitulo": "hhhhhhhhhhh",
+          "descripcion": "kkkkkkkk",
+          "icon": "IconAdCircle",
+          "imagenes": []
+        }
+      ]
     },
     {
-      "id": "4",
+      "id": 4,
       "titulo": "Devoluciones y Garantías",
       "icon": "IconRefresh",
       "problemas": []
     },
     {
-      "id": "5",
+      "id": 5,
       "titulo": "Productos e Inventario",
       "icon": "IconBox",
       "problemas": []
+    },
+    {
+      "titulo": "zzz",
+      "icon": "Icon360View",
+      "problemas": [],
+      "id": 6
+    },
+    {
+      "id": "p-[object Object]01",
+      "titulo": "dadsad",
+      "subtitulo": "asas",
+      "descripcion": "bbfdgf",
+      "icon": "IconAB",
+      "imagenes": []
     }
   ],
   "chats": [
