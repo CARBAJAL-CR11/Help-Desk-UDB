@@ -19,7 +19,6 @@ const PORT = 3000; // Puerto a utilizar con la API
 
 // Configuración de Middlewares
 app.use(cors());
-app.use(express.json());
 
 // Servir la carpeta de imágenes de forma pública
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
