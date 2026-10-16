@@ -121,102 +121,185 @@
                 </table>
             </div>
         </div>
+
         <modalAdministracion
             :abierto="mostrarModal"
             :titulo="tituloModal"
             @cerrar="mostrarModal = false"
             @guardar="manejoGuardarProblema"
         >
-            <form class="space-y-4">
-                <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 mb-1"
-                        >Tipo de problema (Categoría)</label
-                    >
-                    <select
-                        v-model="form.tipo"
-                        class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 bg-white"
-                    >
-                        <option value="" disabled>Selecciona un tipo...</option>
-                        <option
-                            v-for="item in listaCategorias"
-                            :key="item.id"
-                            :value="item.id"
+            <!-- Layout de 2 columnas para extenderse horizontalmente -->
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Columna Izquierda: Campos del problema -->
+                <div class="space-y-4">
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-gray-600 mb-1"
+                            >Tipo de problema (Categoría)</label
                         >
-                            {{ item.titulo }}
-                        </option>
-                    </select>
-                </div>
-
-                <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 mb-1"
-                        >Título del problema</label
-                    >
-                    <input
-                        v-model="form.titulo"
-                        type="text"
-                        placeholder="Ej. Errores en facturación o cobro"
-                        class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
-                    />
-                </div>
-
-                <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 mb-1"
-                        >Subtítulo (Resumen breve)</label
-                    >
-                    <input
-                        v-model="form.subtitulo"
-                        type="text"
-                        placeholder="Ej. Descarga de facturas y corrección de datos"
-                        class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
-                    />
-                </div>
-
-                <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 mb-1"
-                        >Descripción detallada</label
-                    >
-                    <textarea
-                        v-model="form.descripcion"
-                        rows="3"
-                        placeholder="Describe el paso a paso o la solución del problema..."
-                        class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 resize-none"
-                    ></textarea>
-                </div>
-
-                <div>
-                    <label
-                        class="block text-xs font-semibold text-gray-600 mb-1"
-                        >Ícono del problema</label
-                    >
-                    <div class="flex items-center gap-3">
-                        <div
-                            v-if="form.icon"
-                            class="p-2 rounded-lg bg-brand-50 border border-brand-200 text-brand-500"
+                        <select
+                            v-model="form.tipo"
+                            class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 bg-white"
                         >
-                            <component :is="form.icon" class="w-5 h-5" />
-                        </div>
-                        <input
-                            v-model="form.icon"
-                            type="text"
-                            readonly
-                            placeholder="Ej. IconError404Off"
-                            class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 font-mono bg-gray-50 text-gray-700 cursor-not-allowed select-none"
-                        />
-                        <button
-                            type="button"
-                            @click="mostrarSelector = true"
-                            class="px-3 py-2 text-xs bg-brand-500 hover:bg-brand-400 text-white font-medium rounded-lg transition-colors whitespace-nowrap shadow-xs"
-                        >
-                            Seleccionar...
-                        </button>
+                            <option value="" disabled>Selecciona un tipo...</option>
+                            <option
+                                v-for="item in listaCategorias"
+                                :key="item.id"
+                                :value="item.id"
+                            >
+                                {{ item.titulo }}
+                            </option>
+                        </select>
                     </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-gray-600 mb-1"
+                            >Título del problema</label
+                        >
+                        <input
+                            v-model="form.titulo"
+                            type="text"
+                            placeholder="Ej. Errores en facturación o cobro"
+                            class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-gray-600 mb-1"
+                            >Subtítulo (Resumen breve)</label
+                        >
+                        <input
+                            v-model="form.subtitulo"
+                            type="text"
+                            placeholder="Ej. Descarga de facturas y corrección de datos"
+                            class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-gray-600 mb-1"
+                            >Descripción detallada</label
+                        >
+                        <textarea
+                            v-model="form.descripcion"
+                            rows="3"
+                            placeholder="Describe el paso a paso o la solución del problema..."
+                            class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 resize-none"
+                        ></textarea>
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs font-semibold text-gray-600 mb-1"
+                            >Ícono del problema</label
+                        >
+                        <div class="flex items-center gap-3">
+                            <div
+                                v-if="form.icon"
+                                class="p-2 rounded-lg bg-brand-50 border border-brand-200 text-brand-500 flex-shrink-0"
+                            >
+                                <component :is="form.icon" class="w-5 h-5" />
+                            </div>
+                            <input
+                                v-model="form.icon"
+                                type="text"
+                                readonly
+                                placeholder="Ej. IconError404Off"
+                                class="w-full px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 font-mono bg-gray-50 text-gray-700 cursor-not-allowed select-none"
+                            />
+                            <button
+                                type="button"
+                                @click="mostrarSelector = true"
+                                class="px-3 py-2 text-xs bg-brand-500 hover:bg-brand-400 text-white font-medium rounded-lg transition-colors whitespace-nowrap shadow-xs"
+                            >
+                                Seleccionar...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Mini SCRUD de imágenes -->
+                <div class="space-y-4 flex flex-col justify-between border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-6">
+                    <div class="space-y-3">
+                        <label class="block text-xs font-semibold text-gray-600">
+                            Imágenes adjuntas del problema
+                        </label>
+
+                        <!-- Input y Botón para agregar imagen -->
+                        <div class="flex items-center gap-2">
+                            <input
+                                v-model="nuevaImagenInput"
+                                type="text"
+                                placeholder="Ruta o URL de la imagen..."
+                                class="flex-1 px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
+                                @keyup.enter.prevent="agregarImagen"
+                            />
+                            <button
+                                type="button"
+                                @click="agregarImagen"
+                                class="flex items-center gap-1 p-2 text-xs bg-brand-800 hover:bg-brand-500 text-white font-medium rounded-lg transition-colors whitespace-nowrap shadow-xs"
+                            >
+                                <IconCirclePlus class="w-5 h-5" />Agregar
+                            </button>
+                        </div>
+
+                        <!-- Tabla de imágenes adjuntas -->
+                        <div class="border border-gray-200 rounded-lg overflow-hidden bg-gray-50/50 max-h-[300px] overflow-y-auto">
+                            <table class="w-full text-left text-xs text-gray-600">
+                                <thead class="bg-gray-100 border-b border-gray-200 text-gray-500 font-semibold uppercase sticky top-0">
+                                    <tr>
+                                        <th class="px-3 py-2 w-8">#</th>
+                                        <th class="px-3 py-2">Ruta / URL</th>
+                                        <th class="px-3 py-2 text-center w-14">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr 
+                                        v-for="(img, idx) in form.imagenes" 
+                                        :key="idx"
+                                        class="hover:bg-gray-50"
+                                    >
+                                        <td class="px-3 py-2 font-mono text-gray-400">
+                                            {{ idx + 1 }}
+                                        </td>
+                                        <td class="px-3 py-2 font-mono truncate max-w-[180px]" :title="img">
+                                            {{ img }}
+                                        </td>
+                                        <td class="px-3 py-2 text-center">
+                                            <button
+                                                type="button"
+                                                @click="eliminarImagen(idx)"
+                                                class="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                                                title="Eliminar imagen"
+                                            >
+                                                <IconTrash class="w-4 h-4" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr v-if="!form.imagenes || form.imagenes.length === 0">
+                                        <td 
+                                            colspan="3" 
+                                            class="px-3 py-8 text-center text-gray-400 text-xs italic"
+                                        >
+                                            No se han adjuntado imágenes para este problema
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Nota informativa sutil -->
+                    <p class="text-[11px] text-gray-400 italic">
+                        * Las imágenes añadidas se guardarán junto con el problema al hacer clic en Guardar.
+                    </p>
                 </div>
             </form>
         </modalAdministracion>
+
         <selectorIconos
             :abierto="mostrarSelector"
             :iconoSeleccionado="form.icon"
@@ -238,6 +321,10 @@ const busqueda = ref("");
 const mostrarModal = ref(false);
 const mostrarSelector = ref(false);
 const modoEdicion = ref(false);
+
+// Variable para el input de agregar imagen (único agregado auxiliar para el mini SCRUD visual)
+const nuevaImagenInput = ref("");
+
 // Variables reactivas para las API
 const listaCategorias = ref([]);
 const cargando = ref(true);
@@ -256,9 +343,25 @@ const form = ref({
 const tituloModal = computed(() => {
     return modoEdicion.value ? "Editar problema" : "Añadir problema";
 });
+
+// Funciones auxiliares para el manejo local de la tablita de imágenes dentro del modal
+const agregarImagen = () => {
+    if (!nuevaImagenInput.value.trim()) return;
+    if (!form.value.imagenes) {
+        form.value.imagenes = [];
+    }
+    form.value.imagenes.push(nuevaImagenInput.value.trim());
+    nuevaImagenInput.value = "";
+};
+
+const eliminarImagen = (index) => {
+    form.value.imagenes.splice(index, 1);
+};
+
 // Funcion para cuando abre el modal desde el boton (sin un id)
 const abrirModalCrear = () => {
     modoEdicion.value = false;
+    nuevaImagenInput.value = "";
     form.value = {
         id: null,
         tipo: "",
@@ -273,8 +376,10 @@ const abrirModalCrear = () => {
 // Función para cuando se abre el modal de edicion que carga los items de la tabla
 const abrirModalEditar = (item) => {
     modoEdicion.value = true;
+    nuevaImagenInput.value = "";
     form.value = { ...item,
-        tipo: item.categoriaId
+        tipo: item.categoriaId,
+        imagenes: item.imagenes ? [...item.imagenes] : []
     };
     mostrarModal.value = true;
 };
