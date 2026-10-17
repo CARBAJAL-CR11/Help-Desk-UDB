@@ -57,6 +57,13 @@
           >
             Administración de problemas y detalles
           </RouterLink>
+          <RouterLink 
+            to="/administracion-soporte" 
+            class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
+            :class="$route.path === '/administracion-soporte' ? 'bg-brand-400 text-brand-50 hover:bg-brand-500 hover:text-gray-100' : 'text-brand-600 hover:text-brand-500'"
+          >
+            Chats de soporte técnico
+          </RouterLink>
         </div>
 
         <!-- Botón Menú Móvil (Solo visible en Móvil) -->
@@ -151,6 +158,14 @@
           :class="$route.path === '/administracion-problemas' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
         >
           Administración de problemas y detalles
+        </RouterLink>
+        <RouterLink 
+          to="/administracion-soportee" 
+          @click="isMenuOpen = false"
+          class="w-full py-3 px-5 rounded-r-2xl rounded-l-md font-semibold transition-all duration-200 shadow-xs"
+          :class="$route.path === '/administracion-soportee' ? 'bg-brand-400 text-brand-50 border-l-8 border-brand-50' : 'bg-brand-50 text-brand-500 border-l-8 border-brand-700 hover:bg-brand-600 hover:text-brand-50'"
+        >
+          Chats de soporte técnico
         </RouterLink>
       </div>
     </aside>
