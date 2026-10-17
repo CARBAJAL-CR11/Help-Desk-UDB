@@ -82,17 +82,40 @@
                                     />
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-center">
-                                <span
-                                    :class="
-                                        item.imagenes?.length
-                                            ? 'bg-emerald-100 text-emerald-700'
-                                            : 'bg-gray-100 text-gray-400'
-                                    "
-                                    class="px-2 py-0.5 rounded text-xs font-medium"
-                                >
-                                    {{ item.imagenes?.length || 0 }} img
+                            <td class="px-6 py-4 text-center align-middle ">
+                                <!-- Badge contador (se muestra si hay imágenes) -->
+                                <div v-if="item?.imagenes && item.imagenes.length > 0" class="flex items-center justify-center relative group overflow-visible">
+                                    <button                                         
+                                        type="button"
+                                        @click="abrirVisor(item.imagenes)"
+                                        class="inline-flex items-center justify-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all border border-emerald-200/60 whitespace-nowrap shrink-0 cursor-pointer shadow-2xs"
+                                    >
+                                        <IconPhoto class="w-3.5 h-3.5 shrink-0" />
+                                        <span>{{ item.imagenes.length }} img</span>
+                                    </button>
+
+                                    <!-- Popover Flotante Corregido (se despliega con hover) -->
+                                    <div 
+                                    v-if="item?.imagenes && item.imagenes.length > 0"
+                                    class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 pb-3 hidden group-hover:flex flex-col items-center pointer-events-auto"
+                                    >
+                                    <!-- Cajita blanca con sombras y bordes -->
+                                    <div class="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-xl shadow-xl">
+                                        <img 
+                                        v-for="(url, i) in item.imagenes" 
+                                        :key="i"
+                                        :src="formatearRutaImagen(url)" 
+                                                @click.stop="abrirVisor(item.imagenes, i)"
+                                                class="w-11 h-11 object-cover rounded-lg border border-gray-100 hover:scale-105 hover:border-brand-500 transition-all cursor-pointer shadow-xs shrink-0"
+                                                title="Haz clic para ampliar"
+                                                />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span v-else class="text-xs text-gray-400 italic">
+                                    0 img
                                 </span>
+
                             </td>
                             <td class="px-6 py-4 text-center space-x-2">
                                 <button
@@ -229,13 +252,14 @@
                         </label>
 
                         <!-- Input y Botón para agregar imagen -->
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 w-full">
                             <input
-                                v-model="nuevaImagenInput"
-                                type="text"
+                                @change="fileHandle"
+                                type="file"
+                                accept="image/*"
+                                ref="nuevaImagenInput"
                                 placeholder="Ruta o URL de la imagen..."
-                                class="flex-1 px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500"
-                                @keyup.enter.prevent="agregarImagen"
+                                class="flex-1 min-w-0 px-3.5 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 file:mr-3 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-600 file:text-brand-700 hover:file:bg-brand-800 cursor-pointer"
                             />
                             <button
                                 type="button"
@@ -252,21 +276,21 @@
                                 <thead class="bg-gray-100 border-b border-gray-200 text-gray-500 font-semibold uppercase sticky top-0">
                                     <tr>
                                         <th class="px-3 py-2 w-8">#</th>
-                                        <th class="px-3 py-2">Ruta / URL</th>
+                                        <th class="px-3 py-2">Nombre</th>
                                         <th class="px-3 py-2 text-center w-14">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     <tr 
                                         v-for="(img, idx) in form.imagenes" 
-                                        :key="idx"
+                                        :key="(img && img.name) ? img.name + idx : img + idx"
                                         class="hover:bg-gray-50"
                                     >
                                         <td class="px-3 py-2 font-mono text-gray-400">
                                             {{ idx + 1 }}
                                         </td>
-                                        <td class="px-3 py-2 font-mono truncate max-w-[180px]" :title="img">
-                                            {{ img }}
+                                        <td class="px-3 py-2 font-mono truncate max-w-[180px]" :title="obtenerNombreMostrar(img)">
+                                            {{ obtenerNombreMostrar(img) }}
                                         </td>
                                         <td class="px-3 py-2 text-center">
                                             <button
@@ -306,6 +330,44 @@
             @cerrar="mostrarSelector = false"
             @seleccionar="(nombre) => (form.icon = nombre)"
         />
+        <Teleport to="body">
+            <div 
+                v-if="mostrarVisor" 
+                class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xs flex flex-col items-center justify-center p-4"
+                @click.self="cerrarVisor"
+            >
+                <!-- Botón Cerrar -->
+                <button 
+                    type="button" 
+                    @click="cerrarVisor"
+                    class="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors cursor-pointer"
+                >
+                    <IconX class="w-6 h-6" />
+                </button>
+
+                <!-- Imagen principal ampliada -->
+                <div class="relative max-w-4xl max-h-[75vh] flex items-center justify-center">
+                    <img 
+                        :src="formatearRutaImagen(listaVisor[idxVisor])" 
+                        class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl"
+                    />
+                </div>
+
+                <!-- Barra inferior de miniaturas para cambiar de imagen -->
+                <div v-if="listaVisor.length > 1" class="flex items-center gap-2 mt-4 p-2 bg-white/10 rounded-xl backdrop-blur-md">
+                    <img 
+                        v-for="(url, idx) in listaVisor" 
+                        :key="idx" 
+                        :src="formatearRutaImagen(url)" 
+                        @click="idxVisor = idx"
+                        :class="[
+                            'w-12 h-12 object-cover rounded-lg cursor-pointer transition-all border-2',
+                            idx === idxVisor ? 'border-brand-500 scale-105' : 'border-transparent opacity-60 hover:opacity-100'
+                        ]"
+                    />
+                </div>
+            </div>
+        </Teleport>
     </div>
 </template>
 
@@ -322,8 +384,6 @@ const mostrarModal = ref(false);
 const mostrarSelector = ref(false);
 const modoEdicion = ref(false);
 
-// Variable para el input de agregar imagen (único agregado auxiliar para el mini SCRUD visual)
-const nuevaImagenInput = ref("");
 
 // Variables reactivas para las API
 const listaCategorias = ref([]);
@@ -344,17 +404,53 @@ const tituloModal = computed(() => {
     return modoEdicion.value ? "Editar problema" : "Añadir problema";
 });
 
+// Variable para el input de agregar imagen (único agregado auxiliar para el mini SCRUD visual)
+const nuevaImagenInput = ref(null);
+// Variable para las imagenes seleccionadas en el momento
+const archivoSeleccionado = ref(null);
+// Variable para guardar cada imagen que se va agregando
+const archivoNuevo = ref([]);
+
 // Funciones auxiliares para el manejo local de la tablita de imágenes dentro del modal
 const agregarImagen = () => {
-    if (!nuevaImagenInput.value.trim()) return;
+    if (!archivoSeleccionado.value) return;
+
     if (!form.value.imagenes) {
         form.value.imagenes = [];
     }
-    form.value.imagenes.push(nuevaImagenInput.value.trim());
-    nuevaImagenInput.value = "";
-};
 
-const eliminarImagen = (index) => {
+    const file = archivoSeleccionado.value;
+
+    // Guardamos el objeto File tanto para el payload final de Multer como para renderizar en la tabla
+    archivoNuevo.value.push(file);
+    form.value.imagenes.push(file);
+
+    // Limpiamos las referencias y el input HTML
+    archivoSeleccionado.value = null;
+    if (nuevaImagenInput.value) {
+        nuevaImagenInput.value.value = "";
+    }
+};
+// Función para obtener el nombre del archivo que mostrara en la tabla
+const obtenerNombreMostrar = (img) => {
+    if (img && typeof img === 'object' && 'name' in img) {
+        return img.name;
+    }
+    return typeof img === 'string' ? img.split('/').pop() : img;
+}
+// Función para eliminar la imagen dentro de la tabla del modal
+const eliminarImagen = async (index) => {
+    const item = form.value.imagenes[index];
+    const confirmar = await alerta.confirmar('Confirmar acción', '¿Eliminar imagen?');
+    if (!confirmar) {
+        return;
+    }
+    if (item instanceof File) {
+        const nuevo = archivoNuevo.value.indexOf(item);
+        if (nuevo !== -1) {
+            archivoNuevo.value.splice(nuevo, 1);
+        }
+    }
     form.value.imagenes.splice(index, 1);
 };
 
@@ -397,6 +493,13 @@ const idProblema = (idCategoria) => {
     const maxNum = Math.max(...numerosId);
     return `p-${maxNum + 1}`;
 }
+// Función que maneja los archivos (imagenes) que se ingresan en el input de tipo file
+const fileHandle = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        archivoSeleccionado.value = file;
+    }
+}
 // Función asincronica que obtiene las categorias del json
 const obtenerListaPreguntas = async () => {
     try {
@@ -419,6 +522,25 @@ const manejoGuardarProblema = async () => {
         const categoria = listaCategorias.value.find(c => String(c.id) === String(form.value.tipo));
 
         if (!categoria) return;
+
+        const imagenesAnteriores = (form.value.imagenes || []).filter(img => typeof img === 'string');
+        const imagenesParaSubir = (form.value.imagenes || []).filter(img => img instanceof File);
+        let rutaNueva = [];
+
+        if (imagenesParaSubir.length > 0) {
+            const formData = new FormData();
+            imagenesParaSubir.forEach(file => {formData.append('imagenes', file)});
+            const resUpload = await axios.post('http://localhost:3000/api/upload', formData, {
+                headers: { 
+                    'Content-Type': 'multipart/form-data' 
+                }
+            });
+
+            if (resUpload.data && resUpload.data.rutas) {
+                rutaNueva = resUpload.data.rutas;
+            }
+        }
+        const imagenesFinales = [...imagenesAnteriores, ...rutaNueva];
         // Condición para cuando se actualiza
         if (form.value.id) {
             const categoriaAnterior = listaCategorias.value.find(c => 
@@ -430,7 +552,7 @@ const manejoGuardarProblema = async () => {
                     subtitulo: form.value.subtitulo,
                     descripcion: form.value.descripcion,
                     icon: form.value.icon,
-                    imagenes: form.value.imagenes || []
+                    imagenes: imagenesFinales
             };
             if (categoriaAnterior && String(categoriaAnterior.id) !== String(categoria.id)) {
                 categoriaAnterior.problemas = categoriaAnterior.problemas.filter(p => p.id !== form.value.id);
@@ -447,7 +569,7 @@ const manejoGuardarProblema = async () => {
                     subtitulo: form.value.subtitulo,
                     descripcion: form.value.descripcion,
                     icon: form.value.icon,
-                    imagenes: form.value.imagenes || []
+                    imagenes: imagenesFinales
                 };
                 categoria.problemas.push(data);
             }
@@ -466,7 +588,7 @@ const manejoGuardarProblema = async () => {
                 subtitulo: form.value.subtitulo,
                 descripcion: form.value.descripcion,
                 icon: form.value.icon,
-                imagenes: form.value.imagenes || []
+                imagenes: imagenesFinales
             }
             categoria.problemas.push(data);
         }
@@ -556,6 +678,32 @@ const problemasFiltrados = computed(() => {
         );
     });
 });
+
+// Estado para el visor de imágenes (Lightbox)
+const mostrarVisor = ref(false);
+const listaVisor = ref([]);
+const idxVisor = ref(0);
+
+// Abre el visor con las imágenes del problema seleccionado
+const abrirVisor = (imagenes, indexInicio = 0) => {
+    listaVisor.value = imagenes;
+    idxVisor.value = indexInicio;
+    mostrarVisor.value = true;
+};
+
+// Cierra el visor
+const cerrarVisor = () => {
+    mostrarVisor.value = false;
+    listaVisor.value = [];
+    idxVisor.value = 0;
+};
+
+// Formatea las rutas por si vienen relativas (`/uploads/...`) o absolutas (`http://...`)
+const formatearRutaImagen = (url) => {
+    if (!url) return '';
+    if (typeof url !== 'string') return '';
+    return url.startsWith('http') ? url : `http://localhost:3000${url}`;
+};
 
 onMounted(() => {
     obtenerListaPreguntas();
