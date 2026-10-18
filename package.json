@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^5.0.3",
     "@tabler/icons-vue": "^3.46.0",
     "sweetalert2": "^11.26.25",
     "vue": "^3.5.40",

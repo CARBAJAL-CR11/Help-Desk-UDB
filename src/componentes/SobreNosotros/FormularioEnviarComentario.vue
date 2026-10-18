@@ -7,6 +7,7 @@
             <div class="absolute bottom-4 -right-4 lg:right-10 lg:-bottom-0 w-24 h-24 lg:w-24 lg:h-24 bg-brand-50/15 rounded-full pointer-events-none z-0"></div>
             <div class="absolute -bottom-16 -right-20 lg:-right-20 lg:-bottom-28 w-36 h-36 lg:w-48 lg:h-48 bg-brand-50/10 rounded-full pointer-events-none z-0"></div>
         </div>
+        <!--evento @submit.prevent para que la página no se recargue al darle al botón enviar -->
         <form @submit.prevent="validarFormulario" class="py-5 px-10 md:px-32 md:py-10 lg:pt-16 lg:px-16 lg:pb-24 space-y-3 lg:space-y-4 lg:w-1/2 flex flex-col justify-center">
             <div class="relative">
                 <input v-model="formulario.nombre" type="text" id="nombre" placeholder=" " class="peer w-full bg-brand-800 text-brand-50 text-xs px-3.5 pt-5 pb-1.5 rounded-lg border border-white focus:outline-none focus:border-brand-500 transition-colors"/>
@@ -34,10 +35,12 @@
 
 <script setup>
 import { ref } from 'vue';
-// SweetAlert2
+// Librería para que las alertas no se vean tan simples
 import Swal from 'sweetalert2';
+// Usando EmailJS para mandar los correos sin necesidad de tener un backend propio
+import emailjs from '@emailjs/browser';
 
-
+// Objeto para guardar todo lo que el usuario va escribiendo
 const formulario = ref({
   nombre: '',
   telefono: '',
@@ -45,67 +48,87 @@ const formulario = ref({
   problema: ''
 });
 
-//Regex
+//reglas de validación Regex 
 const regex = {
-  nombre: /^[a-zA-ZÀ-ÿ\s]{3,50}$/,
-  telefono: /^[2678]\d{3}-?\d{4}$/, // Formato El Salvador 
+  nombre: /^[a-zA-ZÀ-ÿ\s]{3,50}$/, //Solo letras y espacios, entre 3 y 50 chars
+  telefono: /^[2678]\d{3}-?\d{4}$/, //Validación para números de teléfono de acá
   email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  problema: /^.{10,500}$/ 
+  problema: /^.{10,500}$/ // Pido mínimo 10 caracteres para que expliquen bien el problema
 };
 
+// Función principal
 const validarFormulario = () => {
+// Comprobando uno por uno, si algo falla tiro la alerta 
   if (!regex.nombre.test(formulario.value.nombre)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Nombre inválido',
-      text: 'El nombre debe tener entre 3 y 50 caracteres y contener solo letras.',
-      confirmButtonColor: '#3085d6'
-    });
-    return; 
+    Swal.fire({ icon: 'error', title: 'Nombre inválido', text: 'El nombre debe tener entre 3 y 50 caracteres y contener solo letras.', confirmButtonColor: '#3085d6' });
+    return;
   }
-
   if (!regex.telefono.test(formulario.value.telefono)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Teléfono inválido',
-      text: 'Ingresa un número válido de El Salvador (empieza con 2, 6, 7 u 8 y tiene 8 dígitos).',
-      confirmButtonColor: '#3085d6'
-    });
+    Swal.fire({ icon: 'error', title: 'Teléfono inválido', text: 'Ingresa un número válido de El Salvador.', confirmButtonColor: '#3085d6' });
     return;
   }
-
   if (!regex.email.test(formulario.value.email)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Correo inválido',
-      text: 'Por favor, ingresa una dirección de correo electrónico válida.',
-      confirmButtonColor: '#3085d6'
-    });
+    Swal.fire({ icon: 'error', title: 'Correo inválido', text: 'Por favor, ingresa una dirección válida.', confirmButtonColor: '#3085d6' });
     return;
   }
-
   if (!regex.problema.test(formulario.value.problema)) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Mensaje muy corto',
-      text: 'Por favor, explícanos tu problema con un poco más de detalle (mínimo 10 caracteres).',
-      confirmButtonColor: '#3085d6'
-    });
+    Swal.fire({ icon: 'warning', title: 'Mensaje muy corto', text: 'Por favor, explícanos tu problema con un poco más de detalle.', confirmButtonColor: '#3085d6' });
     return;
   }
-
+//alerta de carga para que el usuario sepa que el sistema lo esta enviando
   Swal.fire({
-    icon: 'success',
-    title: '¡Mensaje Enviado!',
-    text: 'Nos pondremos en contacto contigo lo más pronto posible.',
-    confirmButtonColor: '#28a745'
+    title: 'Enviando mensaje...',
+    text: 'Por favor espera un momento.',
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
   });
-
-  formulario.value = {
-    nombre: '',
-    telefono: '',
-    email: '',
-    problema: ''
+// preparamos los datos exactos que espera mi plantilla de EmailJS
+  const templateParams = {
+    nombre: formulario.value.nombre,
+    telefono: formulario.value.telefono,
+    email: formulario.value.email,
+    problema: formulario.value.problema,
   };
+
+// Mis credenciales de la cuenta de EmailJS
+  const SERVICE_ID = 'service_emf04m5';
+  const TEMPLATE_ID = 'template_0cc88rg'; 
+  const PUBLIC_KEY = '8p5TZZKwNiX0HWc4h';  
+
+  // Ejecutamos el envío de EmailJS
+  // Mando la petición a la API
+  emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+    .then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
+      
+      // Alerta de éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Mensaje Enviado!',
+        text: 'Nos pondremos en contacto contigo lo más pronto posible.',
+        confirmButtonColor: '#28a745'
+      });
+
+      // Limpiamos el formulario
+      formulario.value = {
+        nombre: '',
+        telefono: '',
+        email: '',
+        problema: ''
+      };
+    })
+    .catch((error) => {
+      console.log('FAILED...', error);
+      
+      // Alerta de error si falla el servidor de EmailJS
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al enviar',
+        text: 'Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo más tarde.',
+        confirmButtonColor: '#d33'
+      });
+    });
 };
 </script>
