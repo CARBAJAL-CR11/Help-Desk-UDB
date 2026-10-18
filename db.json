@@ -1,0 +1,136 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "titulo": "Ubicación y Horarios",
+      "icon": "IconMapPin",
+      "problemas": [
+        {
+          "id": "p-101",
+          "titulo": "¿Cómo encuentro mi sucursal más cercana?",
+          "subtitulo": "Ubicación y horarios de atención",
+          "descripcion": "1. Ve a la sección 'Sucursales' en el menú principal. \n2. Ingresa tu código postal o ciudad en el buscador. \n3. Revisa el mapa interactivo y los horarios actualizados de cada tienda.",
+          "icon": "IconStore",
+          "imagenes": []
+        },
+        {
+          "id": "p-102",
+          "titulo": "Cambios en horarios por festivos",
+          "subtitulo": "Consulta horarios especiales",
+          "descripcion": "1. Dirígete al pie de página y selecciona 'Avisos Importantes'. \n2. Busca el calendario de días festivos. \n3. Confirma el horario especial de tu sucursal antes de visitar.",
+          "icon": "IconCalendar",
+          "imagenes": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Estado de Pedido y Envíos",
+      "icon": "IconTruckDelivery",
+      "problemas": [
+        {
+          "id": "p-201",
+          "titulo": "¿Cómo rastreo mi pedido?",
+          "subtitulo": "Seguimiento en tiempo real de tu envío",
+          "descripcion": "1. Inicia sesión en tu cuenta. \n2. Ve a 'Mis Pedidos' y selecciona tu compra. \n3. Haz clic en 'Rastrear' para ver el estado actual y la fecha estimada de entrega.",
+          "icon": "IconPackageSearch",
+          "imagenes": []
+        },
+        {
+          "id": "p-202",
+          "titulo": "Mi pedido se retrasó",
+          "subtitulo": "Qué hacer si tu envío no llega a tiempo",
+          "descripcion": "1. Revisa tu correo por actualizaciones del transportista. \n2. Verifica si hubo intentos de entrega fallidos. \n3. Si el retraso supera las 48h, contacta a soporte con tu número de guía.",
+          "icon": "IconAlertCircle",
+          "imagenes": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Formas de Pago",
+      "icon": "IconCreditCard",
+      "problemas": [
+        {
+          "id": "p-301",
+          "titulo": "¿Qué métodos de pago aceptan?",
+          "subtitulo": "Opciones seguras para tu compra",
+          "descripcion": "1. En el checkout, selecciona tu método preferido: tarjetas (Visa/Mastercard), PayPal, transferencia o efectivo en tiendas de conveniencia. \n2. Sigue las instrucciones seguras de la pasarela de pago.",
+          "icon": "IconWallet",
+          "imagenes": []
+        },
+        {
+          "id": "p-302",
+          "titulo": "Falla en el pago con tarjeta",
+          "subtitulo": "Solución a errores de transacción",
+          "descripcion": "1. Verifica que los datos de la tarjeta sean correctos. \n2. Asegúrate de tener fondos suficientes. \n3. Si el error persiste, contacta a tu banco para autorizar la transacción o prueba otro método.",
+          "icon": "IconCreditCardOff",
+          "imagenes": []
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "titulo": "Devoluciones y Garantías",
+      "icon": "IconRefresh",
+      "problemas": [
+        {
+          "id": "p-401",
+          "titulo": "¿Cómo solicito una devolución?",
+          "subtitulo": "Proceso paso a paso para devolver tu producto",
+          "descripcion": "1. Ve a 'Mis Pedidos' y selecciona el artículo. \n2. Haz clic en 'Solicitar Devolución' y elige el motivo. \n3. Imprime la etiqueta prepagada y entrega el paquete en el punto autorizado.",
+          "icon": "IconReturn",
+          "imagenes": []
+        },
+        {
+          "id": "p-402",
+          "titulo": "Reclamo de garantía",
+          "subtitulo": "Protección y soporte para tu producto",
+          "descripcion": "1. Ubica tu ticket de compra o factura. \n2. Ve a la sección 'Garantías' y registra el número de serie. \n3. Sube fotos del defecto y sigue las instrucciones para la revisión técnica.",
+          "icon": "IconShieldCheck",
+          "imagenes": []
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "titulo": "Hablar con un Agente",
+      "icon": "IconHeadset",
+      "problemas": [
+        {
+          "id": "p-501",
+          "titulo": "¿Cómo contacto a un asesor humano?",
+          "subtitulo": "Conexión directa con nuestro equipo de soporte",
+          "descripcion": "1. Haz clic en el ícono de chat en la esquina inferior derecha. \n2. Escribe 'agente' o selecciona 'Hablar con un humano' en el menú. \n3. Proporciona tu número de pedido para una atención más rápida.",
+          "icon": "IconMessageCircle",
+          "imagenes": []
+        },
+        {
+          "id": "p-502",
+          "titulo": "Horarios de atención al cliente",
+          "subtitulo": "Cuándo puedes hablar con nosotros",
+          "descripcion": "1. Nuestro equipo está disponible de lunes a viernes de 8:00 a 20:00 y sábados de 9:00 a 14:00. \n2. Fuera de este horario, deja tu mensaje en el chat y te responderemos a la brevedad.",
+          "icon": "IconClock",
+          "imagenes": []
+        }
+      ]
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat-uuid-001",
+      "sessionId": "guest-session-123",
+      "usuario": "Invitado_101",
+      "estado": "activo",
+      "creadoEn": "2026-10-13T12:00:00Z",
+      "mensajes": [
+        {
+          "id": 1,
+          "emisor": "usuario",
+          "texto": "Hola, necesito asistencia con una factura",
+          "timestamp": "2026-10-13T12:01:00Z"
+        }
+      ]
+    }
+  ]
+}

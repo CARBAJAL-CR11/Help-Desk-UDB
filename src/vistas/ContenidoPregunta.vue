@@ -2,7 +2,33 @@
     <div class="min-h-screen flex flex-col lg:flex-row">
         <NavBarPreguntas v-model="preguntaActiva"/>
         <main class="flex-1 p-6 sm:p-12 lg:p-16 max-w-4xl">     
-            <section v-if="preguntaActiva === 'ubicacion'" class="space-y-6 text-slate-800">
+            
+            <section v-if="problemaSeleccionado" class="space-y-6 text-slate-800 fade-in">
+                <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-2">
+                    {{ problemaSeleccionado.titulo }}
+                </h2>
+                
+                <h3 v-if="problemaSeleccionado.subtitulo" class="text-lg font-semibold text-brand-600 mb-6">
+                    {{ problemaSeleccionado.subtitulo }}
+                </h3>
+
+                <p class="text-brand-800 text-lg leading-relaxed whitespace-pre-line">
+                    {{ problemaSeleccionado.descripcion }}
+                </p>
+
+                <!-- Renderizado dinámico de imágenes si existen -->
+                <div v-if="problemaSeleccionado.imagenes && problemaSeleccionado.imagenes.length" class="flex flex-col items-center pt-6 space-y-4">
+                    <img 
+                        v-for="(img, index) in problemaSeleccionado.imagenes" 
+                        :key="index"
+                        :src="img" 
+                        :alt="problemaSeleccionado.titulo" 
+                        class="max-w-full rounded-lg shadow-md border border-slate-200"
+                    >
+                </div>
+            </section>
+
+            <section v-else-if="preguntaActiva === 'ubicacion'" class="space-y-6 text-slate-800">
                 <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-6">
                 ¿Dónde están ubicados y cómo puedo llegar?
                 </h2>
@@ -30,11 +56,12 @@
                     </li>
                 </ul>
                 </div>
-                <div class="flex flex-col items-center">
-                    <img class="text-" src="../recursos/imgs/ubicacion.png" alt="ubicacion" width="500">
+                <div class="flex flex-col items-center mt-6">
+                    <img src="../recursos/imgs/ubicacion.png" alt="ubicacion" width="500" class="rounded-lg shadow-md">
                 </div>
             </section>
-            <section v-if="preguntaActiva === 'contacto'" class="space-y-6 text-slate-800">
+
+            <section v-else-if="preguntaActiva === 'contacto'" class="space-y-6 text-slate-800">
                 <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-6">
                 ¿Cómo puedo ponerme en contacto con el servicio de atención al cliente?
                 </h2>
@@ -49,9 +76,10 @@
                     </ul>
                 </div>
             </section>
-            <section v-if="preguntaActiva === 'horarios'" class="space-y-6 text-slate-800">
+
+            <section v-else-if="preguntaActiva === 'horarios'" class="space-y-6 text-slate-800">
                 <h2 class="text-2xl sm:text-3xl font-bold text-brand-800 mb-6">
-                ¿Cuáles son sus horarios de atencion?
+                ¿Cuáles son sus horarios de atención?
                 </h2>
                 <div class="space-y-4 leading-relaxed">
                     <p class="font-semibold text-brand-800">
@@ -67,23 +95,81 @@
                     </p>
                 </div>
             </section>
+
+            <section v-else class="flex h-full items-center justify-center opacity-70">
+                <div class="text-center mt-20">
+                    <IconMessageCircle stroke="{1.5}" class="w-16 h-16 text-brand-400 mx-auto mb-4" />
+                    <p class="text-xl text-brand-800 font-medium">
+                        Bienvenido a Preguntas Frecuetnes Selecciona una pregunta del menú para ver su respuesta.
+                    </p>
+                </div>
+            </section>
         </main>
     </div>
 </template>
 
 <script setup>
-    import { ref, watch } from 'vue';
+    import { ref, watch, onMounted, computed } from 'vue';
     import NavBarPreguntas from '@/componentes/preguntasFrecuentes/navBarPreguntas.vue';
     import { useRoute } from 'vue-router';
-
+    import axios from 'axios';
     const route = useRoute();
-    const preguntaActiva = ref(route.query.pregunta || '');
+
+    const preguntaActiva = ref(route.params.pregunta || '');
+    const categorias = ref([]);
+
+    const obtenerCategorias = async () => {
+    try {
+        const respuesta = await axios.get('http://localhost:3000/api/categorias');
+        return respuesta.data;
+    } catch (error) {
+        console.error('Error al cargar las categorías:', error);
+        throw error;
+    }
+    };
+
     watch(
-        () => route.query.pregunta,
+        () => route.params.pregunta,
         (nuevaPregunta) => {
-            if (nuevaPregunta) {
-            preguntaActiva.value = nuevaPregunta;
-            }
+                preguntaActiva.value = nuevaPregunta || '';
         }
     );
+
+    // Cargar los datos desde el servidor
+    const cargarDatos = async () => {
+        try {
+            const data = await obtenerCategorias();
+            categorias.value = data;
+        } catch (error) {
+            console.error('Hubo un error cargando las categorías:', error);
+        }
+    };
+
+    onMounted(() => {
+        cargarDatos();
+    });
+
+    
+    const problemaSeleccionado = computed(() => {
+        if (!preguntaActiva.value || categorias.value.length === 0) return null;
+
+        for (const categoria of categorias.value) {
+            const encontrado = categoria.problemas?.find(p => p.id === preguntaActiva.value);
+            if (encontrado) {
+                return encontrado;
+            }
+        }
+        return null;
+    });
 </script>
+
+<style scoped>
+    .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
