@@ -94,8 +94,7 @@
     import { ref, onMounted } from 'vue';
     import { useRouter, useRoute } from 'vue-router';
     import ListaPreguntaFrecuente from '@/componentes/preguntasFrecuentes/ListaPreguntaFrecuente.vue';
-    import { obtenerCategorias } from '@/servicios/GetPreguntas.js';
-    
+    import axios from 'axios';
 
     const router = useRouter();
     const route = useRoute();
@@ -104,6 +103,15 @@
     const acordionAbierto = ref();
     const menuAbierto = ref(false);
 
+    const obtenerCategorias = async () => {
+        try {
+            const respuesta = await axios.get('http://localhost:3000/api/categorias');
+            return respuesta.data;
+        } catch (error) {
+            console.error('Error al cargar las categorías:', error);
+            throw error;
+        }
+    };
     const preguntaSeleccionada = defineModel({
         type: String,
         default: ''
