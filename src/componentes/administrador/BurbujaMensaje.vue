@@ -20,12 +20,13 @@
 			</span>
 		</div>
 	</div>
-	
+
 </template>
 
 <script setup>
 import { computed } from 'vue'
 
+// Props que espera traer desde su componente padre (el mensaje)
 const props = defineProps({
 	mensaje: {
 		type: Object,
