@@ -1,6 +1,6 @@
 <template>
   <div v-if="abierto" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 transition-opacity">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-100 flex flex-col gap-4">
+    <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl border border-gray-100 flex flex-col gap-4">
     <div class="flex justify-between items-center border-b border-gray-100 pb-3">
         <h3 class="text-lg font-bold text-gray-800">
           {{ titulo }}
