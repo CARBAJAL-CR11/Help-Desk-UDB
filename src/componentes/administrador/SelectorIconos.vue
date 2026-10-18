@@ -1,11 +1,11 @@
 <template>
   <div v-if="abierto" class="fixed inset-0 w-screen h-screen bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 z-[9999]">
-    <div class="bg-gray-900 border border-gray-800 text-gray-100 rounded-2xl max-w-xl w-full p-5 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+    <div class="bg-brand-50 border border-brand-800 text-gray-100 rounded-2xl max-w-xl w-full p-5 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
         <div class="flex items-center gap-2">
           <div class="w-6 h-6 bg-brand-500 rounded flex items-center justify-center text-xs font-bold text-white">T</div>
           <div>
-            <h4 class="text-sm font-bold text-white">Seleccionar Ícono</h4>
+            <h4 class="text-sm font-bold text-brand-800">Seleccionar ícono</h4>
             <p class="text-[10px] text-gray-400">Catálogo completo de Tabler Icons</p>
           </div>
         </div>
@@ -18,7 +18,7 @@
           v-model="filtro" 
           type="text" 
           placeholder="Buscar ícono (ej. user, cart, error, settings)..." 
-          class="w-full bg-gray-800 text-white text-xs px-3.5 py-2.5 rounded-lg border border-gray-700 focus:outline-none focus:border-brand-500"
+          class="w-full bg-brand-50 text-brand-800 text-xs px-3.5 py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:border-brand-500"
         />
       </div>
       <div class="grid grid-cols-6 sm:grid-cols-8 gap-2 max-h-64 overflow-y-auto pr-1">
@@ -27,14 +27,14 @@
           :key="nombreIcono"
           type="button"
           @click="seleccionar(nombreIcono)"
-          :class="iconoSeleccionado === nombreIcono ? 'bg-brand-500 text-white border-brand-400 scale-105' : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700 hover:text-white'"
+          :class="iconoSeleccionado === nombreIcono ? 'bg-brand-500 text-white border-brand-400 scale-105' : 'bg-brand-50 text-brand-500 border-brand-500 hover:bg-brand-500 hover:text-white'"
           class="p-2.5 rounded-lg border flex items-center justify-center transition-all aspect-square"
           :title="nombreIcono"
         >
           <component :is="TablerIcons[nombreIcono]" class="w-5 h-5"/>
         </button>
       </div>
-      <div class="flex justify-between items-center pt-2 text-[11px] text-gray-500 border-t border-gray-800">
+      <div class="flex justify-between items-center pt-2 text-[11px] text-gray-500 border-t border-gray-300">
         <span>Selecciona un ícono para asignarlo</span>
         <button type="button" @click="$emit('cerrar')" class="text-brand-400 hover:underline">
           Cancelar

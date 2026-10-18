@@ -112,12 +112,21 @@
     import { ref, watch, onMounted, computed } from 'vue';
     import NavBarPreguntas from '@/componentes/preguntasFrecuentes/navBarPreguntas.vue';
     import { useRoute } from 'vue-router';
-    import { obtenerCategorias } from '@/servicios/GetPreguntas.js'; 
-
+    import axios from 'axios';
     const route = useRoute();
 
     const preguntaActiva = ref(route.params.pregunta || '');
     const categorias = ref([]);
+
+    const obtenerCategorias = async () => {
+    try {
+        const respuesta = await axios.get('http://localhost:3000/api/categorias');
+        return respuesta.data;
+    } catch (error) {
+        console.error('Error al cargar las categorías:', error);
+        throw error;
+    }
+    };
 
     watch(
         () => route.params.pregunta,
