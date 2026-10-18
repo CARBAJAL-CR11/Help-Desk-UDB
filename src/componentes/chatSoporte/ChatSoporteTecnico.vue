@@ -110,6 +110,26 @@ const scrollAlFondo = () => {
   });
 };
 
+// Obtiene la fecha/hora actual en la zona horaria de El Salvador (GMT-6)
+const obtenerTimestampElSalvador = () => {
+  const fecha = new Date();
+  
+  // Formato ISO con offset explícito (-06:00)
+  const fechaElSalvador = new Date(
+    fecha.toLocaleString('en-US', { timeZone: 'America/El_Salvador' })
+  );
+  
+  const pad = (n) => String(n).padStart(2, '0');
+  const yyyy = fechaElSalvador.getFullYear();
+  const mm = pad(fechaElSalvador.getMonth() + 1);
+  const dd = pad(fechaElSalvador.getDate());
+  const hh = pad(fechaElSalvador.getHours());
+  const min = pad(fechaElSalvador.getMinutes());
+  const ss = pad(fechaElSalvador.getSeconds());
+
+  return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}-06:00`;
+};
+
 const inicializarSoporte = async () => {
   if (idChatLocal.value) {
     try {
@@ -155,7 +175,7 @@ const crearRegistroChatEnApi = async (nombre) => {
           id: 1,
           emisor: 'usuario',
           texto: nombre,
-          timestamp: new Date().toISOString()
+          timestamp: obtenerTimestampElSalvador()
         }
       ]
     };
@@ -181,7 +201,7 @@ const guardarMensajeEnApi = async (emisor, texto) => {
       id: ultimoId + 1,
       emisor: emisor,
       texto: texto,
-      timestamp: new Date().toISOString()
+      timestamp: obtenerTimestampElSalvador()
     };
 
     await axios.patch(`${apiBase}/chats/${idChatLocal.value}`, {

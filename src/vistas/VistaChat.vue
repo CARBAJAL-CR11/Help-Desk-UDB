@@ -158,7 +158,4 @@ onMounted(() => {
   verificarSessionStorage();
 });
 
-onUnmounted(() => {
-  if (timerRotacion) clearInterval(timerRotacion);
-});
 </script>

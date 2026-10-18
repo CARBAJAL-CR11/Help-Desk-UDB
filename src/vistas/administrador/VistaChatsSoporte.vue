@@ -1,239 +1,143 @@
 <template>
-	<div class="flex flex-col h-full justify-between pt-6">
-		<!-- Área de Conversación Persistente -->
-		<div ref="chatContainer" class="flex flex-col gap-6 overflow-y-auto pr-2">
-			<TransitionGroup tag="div" class="flex flex-col gap-6"
-				enter-active-class="transition-all duration-500 ease-out"
-				enter-from-class="opacity-0 translate-y-6 scale-95" enter-to-class="opacity-100 translate-y-0 scale-100"
-				leave-active-class="transition-all duration-300 ease-in"
-				leave-from-class="opacity-100 translate-y-0 scale-100"
-				leave-to-class="opacity-0 -translate-y-4 scale-95">
-				<template v-for="msg in historialMensajes" :key="msg.id">
-
-					<!-- Mensaje del Usuario -->
-					<div v-if="msg.emisor === 'usuario'" class="flex flex-col items-end gap-1">
-						<span class="text-xs font-semibold text-blue-600 pr-2">Tú</span>
-						<div
-							class="flex items-center gap-2 rounded-3xl bg-blue-600 px-6 py-3 text-sm text-white shadow-sm font-semibold">
-							<span>{{ msg.texto }}</span>
-						</div>
+	<!-- Contenedor completo de card de chats de soportes -->
+	<div class="p-6 max-w-7xl mx-auto h-[calc(100vh-5rem)]">
+		<div class="flex h-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+			<!-- Panel izquierdo para seleccionar chat -->
+			<div class="w-full md:w-96 flex flex-col border-r border-gray-200 bg-gray-50/50">
+				<div class="p-4 border-b border-gray-200 space-y-3">
+					<!-- Parte superior de sidebar -->
+					<div class="flex items-center justify-between">
+						<h1 class="text-xl font-bold text-gray-800">Centro de Soporte</h1>
+						<span
+							class="px-2.5 py-0.5 bg-brand-50 text-brand-600 border border-brand-200 text-xs font-semibold rounded-full">
+							{{ chatsFiltrados.length }} chats
+						</span>
 					</div>
-
-					<!-- Mensaje de Soporte / Carga -->
-					<div v-else class="flex flex-col items-start gap-1">
-						<span class="text-xs font-semibold text-blue-600 pl-2">Soporte Técnico</span>
-
-						<!-- Indicador de Puntos Animados "Escribiendo..." -->
-						<div v-if="msg.esCargando"
-							class="rounded-2xl bg-[#455a74] px-5 py-3 text-sm text-white shadow-sm flex items-center gap-1.5">
-							<span class="w-2 h-2 rounded-full bg-blue-300 animate-bounce"></span>
-							<span class="w-2 h-2 rounded-full bg-blue-300 animate-bounce [animation-delay:0.2s]"></span>
-							<span class="w-2 h-2 rounded-full bg-blue-300 animate-bounce [animation-delay:0.4s]"></span>
-						</div>
-
-						<!-- Globo de Texto de Soporte -->
-						<div v-else
-							class="lg:max-w-5xl md:max-w-xl sm:max-w-md max-w-sm rounded-2xl bg-[#455a74] p-5 text-sm leading-relaxed text-white shadow-sm">
-							<p>{{ msg.texto }}</p>
-						</div>
+					
+					<!-- Buscador de chats -->
+					<div class="relative">
+						<input v-model="busqueda" type="text" placeholder="Buscar por usuario o sesión..."
+							class="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-500 focus:bg-white transition-all" />
+						<span class="absolute left-3 top-2.5 text-gray-400">
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+							</svg>
+						</span>
 					</div>
+				</div>
+				<!-- Contenido de cards de cada chat encontrado -->
+				<div class="flex-1 overflow-y-auto p-3 space-y-2">
+					<TarjetaChat v-for="chat in chatsFiltrados" :key="chat.id" :chat="chat"
+						:activo="chatActivo?.id === chat.id" @seleccionar="chatActivo = chat" />
+					<div v-if="chatsFiltrados.length === 0" class="text-center py-12 px-4 text-gray-400 text-xs">
+						No se encontraron chats que coincidan con "{{ busqueda }}"
+					</div>
+				</div>
+			</div>
+			<!-- Contenido directamente del chat de soporte -->
+			<div class="hidden sm:flex flex-1 flex-col bg-white">
+				<!-- LLamada de componente de chat -->
+				<VentanaChat v-if="chatActivo" :chatActivo="chatActivo" />
+				<!-- Si no se ha seleccionado ningún chat se muestra mensaje default -->
+				<div v-else class="flex flex-col items-center justify-center h-full bg-gray-50/50 text-center p-8">
+					<div
+						class="w-16 h-16 rounded-full bg-brand-50 border border-brand-200 text-brand-500 flex items-center justify-center mb-4 shadow-xs">
+						<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+								d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+						</svg>
+					</div>
+					<h3 class="text-lg font-bold text-gray-800 mb-1">Panel de Conversaciones</h3>
+					<p class="text-sm text-gray-500 max-w-sm">
+						Selecciona una conversación del panel izquierdo para comenzar a brindar asistencia técnica en
+						tiempo real.
+					</p>
+				</div>
+			</div>
 
-				</template>
-			</TransitionGroup>
-		</div>
-
-		<!-- Input de Mensajes -->
-		<div class="relative mt-4 w-full">
-			<input v-model="inputTexto" type="text" :disabled="procesandoRespuesta"
-				:placeholder="requiereNombre ? 'Ingresa tu nombre para continuar...' : 'Escribe tu mensaje para soporte...'"
-				class="w-full rounded-full border border-slate-400 bg-white py-3 pl-6 pr-12 text-sm text-slate-700 placeholder-indigo-300 outline-none transition focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 disabled:bg-slate-100"
-				@keydown.enter="procesarEnvio" />
-			<button type="button" aria-label="Enviar" :disabled="procesandoRespuesta"
-				class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-[#1242D6] hover:text-[#0a2780] hover:bg-slate-100 transition-all duration-200 cursor-pointer disabled:opacity-50"
-				@click="procesarEnvio">
-				<component :is="'IconSend'" class="w-5 h-5 stroke-[2]" />
-			</button>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import TarjetaChat from '@/componentes/administrador/TarjetaChat.vue'
+import VentanaChat from '@/componentes/administrador/VentanaChat.vue'
 
-const props = defineProps({
-	sessionId: {
-		type: String,
-		required: true
-	},
-	chatId: {
-		type: [Number, String, null],
-		default: null
+const busqueda = ref('')
+const chatActivo = ref(null)
+
+// datos quemados para pruebas en la interfaz :P
+const listaChats = ref([
+	{
+      id: 1,
+      sessionId: "guest-session-123",
+      usuario: "Cristian Rodriguez",
+      estado: true,
+      creadoEn: "2026-10-16T12:00:00Z",
+      mensajes: [
+        {
+          id: 1,
+          emisor: "usuario",
+          texto: "Hola, necesito asistencia con una factura.",
+          timestamp: "2026-10-16T12:01:00Z"
+        },
+        {
+          id: 2,
+          emisor: "admin",
+          texto: "Por supuesto, dime lo que necesitas.",
+          timestamp: "2026-10-16T12:02:00Z"
+        }
+      ]
+    },
+	{
+      id: 2,
+      sessionId: "guest-session-123",
+      usuario: "Invitado_1",
+      estado: false,
+      creadoEn: "2026-10-16T12:00:00Z",
+      mensajes: [
+        {
+          id: 1,
+          emisor: "usuario",
+          texto: "Hola, necesito asistencia con una factura.",
+          timestamp: "2026-10-16T12:01:00Z"
+        },
+        {
+          id: 2,
+          emisor: "admin",
+          texto: "Por supuesto, dime lo que necesitas.",
+          timestamp: "2026-10-16T12:02:00Z"
+        }
+      ]
+    }
+])
+
+// filtro de búsqueda reactiva por nombre de usuario o id de sesión
+const chatsFiltrados = computed(() => {
+	if (!busqueda.value.trim()) return listaChats.value
+	const termino = busqueda.value.toLowerCase().trim()
+
+	return listaChats.value.filter(chat =>
+		chat.usuario.toLowerCase().includes(termino) ||
+		chat.sessionId.toLowerCase().includes(termino)
+	)
+})
+
+// función para manejar la tecla Escape
+const manejarKeydown = (e) => {
+	if (e.key === 'Escape') {
+		chatActivo.value = null // cierra el chat activo y muestra la bienvenida
 	}
-});
+}
 
-const emit = defineEmits(['chat-registrado']);
-const apiBase = 'http://localhost:3000/api';
-
-const inputTexto = ref('');
-const historialMensajes = ref([]);
-const requiereNombre = ref(false);
-const nombreUsuario = ref('');
-const idChatLocal = ref(props.chatId);
-const chatContainer = ref(null);
-const procesandoRespuesta = ref(false);
-
-// Función auxiliar para obtener el siguiente ID entero incremental
-const obtenerSiguienteIdMensaje = () => {
-	if (historialMensajes.value.length === 0) return 1;
-	const idsNumericos = historialMensajes.value
-		.map(m => Number(m.id))
-		.filter(id => !isNaN(id));
-	return idsNumericos.length > 0 ? Math.max(...idsNumericos) + 1 : 1;
-};
-
-const scrollAlFondo = () => {
-	nextTick(() => {
-		if (chatContainer.value) {
-			chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
-		}
-	});
-};
-
-const inicializarSoporte = async () => {
-	if (idChatLocal.value) {
-		try {
-			const res = await axios.get(`${apiBase}/chats/${idChatLocal.value}`);
-			nombreUsuario.value = res.data.usuario;
-
-			const mensajesGuardados = res.data.mensajes.map((m) => ({
-				id: Number(m.id),
-				emisor: m.emisor === 'admin' ? 'admin' : 'usuario',
-				texto: m.texto
-			}));
-
-			historialMensajes.value = mensajesGuardados;
-			requiereNombre.value = false;
-
-			scrollAlFondo();
-			return;
-		} catch (error) {
-			console.error('Error al recuperar historial del chat:', error);
-		}
-	}
-
-	// Si no hay un registro previo en la API, solicitar nombre con ID 1
-	requiereNombre.value = true;
-	historialMensajes.value = [
-		{
-			id: 1,
-			emisor: 'admin',
-			texto: 'Para conectarte con un agente de soporte técnico, por favor ingresa tu nombre:'
-		}
-	];
-	scrollAlFondo();
-};
-
-const crearRegistroChatEnApi = async (nombre) => {
-	try {
-		const nuevoChatObj = {
-			sessionId: props.sessionId,
-			usuario: nombre,
-			estado: true,
-			creadoEn: new Date().toISOString(),
-			mensajes: [
-				{
-					id: 1,
-					emisor: 'usuario',
-					texto: nombre,
-					timestamp: new Date().toISOString()
-				}
-			]
-		};
-
-		const res = await axios.post(`${apiBase}/chats`, nuevoChatObj);
-		idChatLocal.value = res.data.id;
-		emit('chat-registrado', res.data.id);
-	} catch (error) {
-		console.error('Error al crear registro de chat:', error);
-	}
-};
-
-const guardarMensajeEnApi = async (emisor, texto) => {
-	if (!idChatLocal.value) return;
-
-	try {
-		const res = await axios.get(`${apiBase}/chats/${idChatLocal.value}`);
-		const chatActual = res.data;
-
-		// Calcular el ID incremental basado en los mensajes registrados en el servidor
-		const ultimoId = chatActual.mensajes.reduce((max, m) => Math.max(max, Number(m.id) || 0), 0);
-
-		const nuevoMensaje = {
-			id: ultimoId + 1,
-			emisor: emisor,
-			texto: texto,
-			timestamp: new Date().toISOString()
-		};
-
-		await axios.patch(`${apiBase}/chats/${idChatLocal.value}`, {
-			mensajes: [...chatActual.mensajes, nuevoMensaje]
-		});
-	} catch (error) {
-		console.error('Error al guardar mensaje en la API:', error);
-	}
-};
-
-const procesarEnvio = async () => {
-	const entrada = inputTexto.value.trim();
-	if (!entrada || procesandoRespuesta.value) return;
-
-	procesandoRespuesta.value = true;
-	inputTexto.value = '';
-
-	// 1. PASO INICIAL: Ingreso del Nombre del usuario
-	if (requiereNombre.value) {
-		nombreUsuario.value = entrada;
-		requiereNombre.value = false;
-
-		const idMensaje = obtenerSiguienteIdMensaje();
-		historialMensajes.value.push({
-			id: idMensaje,
-			emisor: 'usuario',
-			texto: entrada
-		});
-		scrollAlFondo();
-		
-		const tempLoadingId = 'loading-' + Date.now();
-				historialMensajes.value.push({
-					id: tempLoadingId,
-					emisor: 'admin',
-					esCargando: true
-				});
-		await crearRegistroChatEnApi(entrada);
-
-		
-		scrollAlFondo();
-
-		procesandoRespuesta.value = false;
-		return;
-	}
-
-	// 2. MENSAJES SUBSIGUIENTES DEL USUARIO
-	const idMensajeUser = obtenerSiguienteIdMensaje();
-	historialMensajes.value.push({
-		id: idMensajeUser,
-		emisor: 'usuario',
-		texto: entrada
-	});
-	scrollAlFondo();
-
-	await guardarMensajeEnApi('usuario', entrada);
-
-	procesandoRespuesta.value = false;
-};
-
+// registrar y limpiar el listener global del teclado muajaja
 onMounted(() => {
-	inicializarSoporte();
-});
+	window.addEventListener('keydown', manejarKeydown)
+})
+
+onUnmounted(() => {
+	window.removeEventListener('keydown', manejarKeydown)
+})
 </script>
