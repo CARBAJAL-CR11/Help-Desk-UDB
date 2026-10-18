@@ -163,8 +163,8 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import axios from "axios";
-import modalAdministracion from "@/componentes/administrador/modalAdministracion.vue";
-import selectorIconos from "@/componentes/administrador/selectorIconos.vue";
+import modalAdministracion from "@/componentes/administrador/ModalAdministracion.vue";
+import selectorIconos from "@/componentes/administrador/SelectorIconos.vue";
 import { alertas } from "@/recursos/alertas";
 
 const alerta = alertas();
