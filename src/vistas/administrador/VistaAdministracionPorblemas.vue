@@ -1,5 +1,6 @@
 <template>
     <div class="p-6 max-w-6xl mx-auto space-y-6">
+        <!-- Encabezado del componente con los nombres, buscador y boton para añadir -->
         <div
             class="flex flex-col md:flex-row justify-between items-center gap-4"
         >
@@ -27,11 +28,13 @@
                 </button>
             </div>
         </div>
+        <!-- Tabla de problemas -->
         <div
             class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
         >
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-gray-600">
+                    <!-- Encabezados de la tabla -->
                     <thead
                         class="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500"
                     >
@@ -44,6 +47,7 @@
                             <th class="px-6 py-3 text-center w-32">Acciones</th>
                         </tr>
                     </thead>
+                    <!-- Cuerpo de la tabla -->
                     <tbody class="divide-y divide-gray-200">
                         <tr
                             v-for="item in problemasFiltrados"
@@ -82,6 +86,7 @@
                                     />
                                 </div>
                             </td>
+
                             <td class="px-6 py-4 text-center align-middle ">
                                 <!-- Badge contador (se muestra si hay imágenes) -->
                                 <div v-if="item?.imagenes && item.imagenes.length > 0" class="flex items-center justify-center relative group overflow-visible">
@@ -94,21 +99,21 @@
                                         <span>{{ item.imagenes.length }} img</span>
                                     </button>
 
-                                    <!-- Popover Flotante Corregido (se despliega con hover) -->
+                                    <!-- Popover Flotante de imagenes-->
                                     <div 
                                     v-if="item?.imagenes && item.imagenes.length > 0"
                                     class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 pb-3 hidden group-hover:flex flex-col items-center pointer-events-auto"
                                     >
-                                    <!-- Cajita blanca con sombras y bordes -->
-                                    <div class="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-xl shadow-xl">
-                                        <img 
-                                        v-for="(url, i) in item.imagenes" 
-                                        :key="i"
-                                        :src="formatearRutaImagen(url)" 
-                                                @click.stop="abrirVisor(item.imagenes, i)"
-                                                class="w-11 h-11 object-cover rounded-lg border border-gray-100 hover:scale-105 hover:border-brand-500 transition-all cursor-pointer shadow-xs shrink-0"
-                                                title="Haz clic para ampliar"
-                                                />
+                                        <!-- Cajita blanca con sombras y bordes -->
+                                        <div class="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-xl shadow-xl">
+                                            <img 
+                                            v-for="(url, i) in item.imagenes" 
+                                            :key="i"
+                                            :src="formatearRutaImagen(url)" 
+                                                    @click.stop="abrirVisor(item.imagenes, i)"
+                                                    class="w-11 h-11 object-cover rounded-lg border border-gray-100 hover:scale-105 hover:border-brand-500 transition-all cursor-pointer shadow-xs shrink-0"
+                                                    title="Haz clic para ampliar"
+                                                    />
                                         </div>
                                     </div>
                                 </div>
@@ -117,6 +122,7 @@
                                 </span>
 
                             </td>
+                            <!-- Acciones para gestionar los datos -->
                             <td class="px-6 py-4 text-center space-x-2">
                                 <button
                                     @click="abrirModalEditar(item)"
@@ -621,6 +627,24 @@ const eliminarPregunta = async (Id) => {
         const categoriaPadre = listaCategorias.value.find(c => 
             c.problemas && c.problemas.some(p => p.id === Id)
         );
+        // variable para encontrar el problema a eliminar
+        const problemaAEliminar = categoriaPadre.problemas.find(p => p.id === Id);
+        // Concición que se cumple si tiene imagenes en el registro para eliminarlas del uploads
+        if (problemaAEliminar && problemaAEliminar.imagenes && problemaAEliminar.imagenes.length > 0) {
+            for (const ruta of problemaAEliminar.imagenes) {
+                // Solo intentamos eliminar si la ruta es una cadena de texto válida
+                if (typeof ruta === 'string') {
+                    try {
+                        await axios.delete('http://localhost:3000/api/upload', {
+                            params: { ruta: ruta }
+                        });
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+            }
+        }
+
         const problemasActualizados = categoriaPadre.problemas.filter(
             p => p.id !== Id
         );
