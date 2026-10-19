@@ -14,8 +14,8 @@ export function alertas() {
         buttonsStyling: false,
         customClass: {
             popup: 'bg-brand-500 text-brand-50 rounded-xl shadow-lg border border-brand-400 p-4',
-            title: 'text-base font-semibold text-brand-50',
-            htmlContainer: 'text-sm text-brand-100',
+            title: 'text-base font-semibold text-brand-800',
+            htmlContainer: 'text-sm text-brand-600',
             timerProgressBar: 'bg-brand-300'
         },
         didOpen: () => {
@@ -58,8 +58,8 @@ export function alertas() {
         buttonsStyling: false,
         customClass: {
             popup: 'bg-brand-600 text-brand-50 rounded-xl shadow-lg border border-brand-400 p-4',
-            title: 'text-base font-semibold text-brand-50',
-            htmlContainer: 'text-sm text-brand-100',
+            title: 'text-base font-semibold text-brand-800',
+            htmlContainer: 'text-sm text-brand-600',
             timerProgressBar: 'bg-brand-300',
             icon: 'text-brand-300'
         },

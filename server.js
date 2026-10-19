@@ -19,7 +19,7 @@ const PORT = 3000; // Puerto a utilizar con la API
 
 // Configuración de Middlewares
 app.use(cors());
-
+app.use(express.urlencoded({ extended: true }));
 // Servir la carpeta de imágenes de forma pública
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -53,6 +53,31 @@ app.post('/api/upload', upload.array('imagenes', 5), (req, res) => {
     return res.status(200).json({ mensaje: 'Imágenes subidas correctamente', rutas });
   } catch (error) {
     return res.status(500).json({ error: 'Error al subir las imágenes' });
+  }
+});
+// Endpoint para eliminar imagenes en el upload
+app.delete('/api/upload', (req, res) => {
+  try {
+      // Leemos la ruta desde query params (o req.body si viniera ahí)
+      const ruta = req.query.ruta || req.body?.ruta;
+
+      if (!ruta || typeof ruta !== 'string') {
+        return res.status(400).json({ error: 'Ruta no proporcionada' });
+      }
+
+      // Quitamos la barra inicial '/uploads/img.png' -> 'uploads/img.png'
+      const rutaLimpia = ruta.startsWith('/') ? ruta.substring(1) : ruta;
+      const rutaAbsoluta = path.join(__dirname, rutaLimpia);
+
+      if (fs.existsSync(rutaAbsoluta)) {
+        fs.unlinkSync(rutaAbsoluta);
+        return res.status(200).json({ mensaje: 'Archivo eliminado físicamente' });
+      } else {
+        return res.status(200).json({ mensaje: 'El archivo ya no existía en el disco' });
+      }
+    } catch (error) {
+      console.error('Error en DELETE /api/upload:', error);
+      return res.status(500).json({ error: 'Error interno al intentar eliminar' });
   }
 });
 
